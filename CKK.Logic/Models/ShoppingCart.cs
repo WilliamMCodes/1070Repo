@@ -25,6 +25,11 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem  AddProduct(Product prod, int quantity)
         {
+            if (quantity <= 0)
+            {
+                return null;
+            }
+
             for(int i = 1; i <= 3; i++)
             {
                 if(GetProduct(i) != null)
@@ -93,6 +98,11 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem RemoveProduct(Product prod, int quantity)
         {
+            if (quantity <= 0)
+            {
+                return null;
+            }
+
             if(GetProductById(prod.GetId()) != null)
             {
                 if (GetProductById(prod.GetId()).GetQuantity() > quantity)
