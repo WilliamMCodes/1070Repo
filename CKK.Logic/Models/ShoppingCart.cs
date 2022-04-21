@@ -23,7 +23,7 @@ namespace CKK.Logic.Models
             return _customer.GetId();
         }
 
-        public void AddProduct(Product prod, int quantity)
+        public ShoppingCartItem  AddProduct(Product prod, int quantity)
         {
             for(int i = 1; i <= 3; i++)
             {
@@ -32,7 +32,7 @@ namespace CKK.Logic.Models
                     if(GetProduct(i).GetProduct().GetId() == prod.GetId())
                     {
                         GetProduct(i).SetQuantity(GetProduct(i).GetQuantity() + quantity);
-                        return;
+                        return GetProduct(i);
                     }
                 }
                 else if(GetProduct(i) == null)
@@ -41,21 +41,23 @@ namespace CKK.Logic.Models
                     {
                         case 1:
                             _product1 = new ShoppingCartItem(prod, quantity);
-                            return;
+                            return _product1;
                         case 2:
                             _product2 = new ShoppingCartItem(prod, quantity);
-                            return;
+                            return _product2;
                         case 3:
                             _product3 = new ShoppingCartItem(prod, quantity);
-                            return;
+                            return _product3;
                         default:
-                            return;
+                            break;
                     }
                 }
             }
+
+            return null;
         }
 
-        public void AddProduct(Product prod)
+        public ShoppingCartItem AddProduct(Product prod)
         {
             for (int i = 1; i <= 3; i++)
             {
@@ -64,7 +66,7 @@ namespace CKK.Logic.Models
                     if (GetProduct(i).GetProduct().GetId() == prod.GetId())
                     {
                         GetProduct(i).SetQuantity(GetProduct(i).GetQuantity() + 1);
-                        return;
+                        return GetProduct(i);
                     }
                 }
                 else if (GetProduct(i) == null)
@@ -73,48 +75,52 @@ namespace CKK.Logic.Models
                     {
                         case 1:
                             _product1 = new ShoppingCartItem(prod, 1);
-                            return;
+                            return _product1;
                         case 2:
                             _product2 = new ShoppingCartItem(prod, 1);
-                            return;
+                            return _product2;
                         case 3:
                             _product3 = new ShoppingCartItem(prod, 1);
-                            return;
+                            return _product3;
                         default:
-                            return;
+                            break; ;
                     }
                 }
             }
+
+            return null;
         }
 
-        public void RemoveProduct(Product prod, int quantity)
+        public ShoppingCartItem RemoveProduct(Product prod, int quantity)
         {
             if(GetProductById(prod.GetId()) != null)
             {
                 if (GetProductById(prod.GetId()).GetQuantity() > quantity)
                 {
                     GetProductById(prod.GetId()).SetQuantity(GetProductById(prod.GetId()).GetQuantity() - quantity);
-                    return;
+                    return GetProductById(prod.GetId());
                 }
                 else
                 {
                     if(GetProductById(prod.GetId()) == _product1)
                     {
                         _product1 = null;
-                        return;
+                        return null;
                     }
                     else if(GetProductById(prod.GetId()) == _product2)
                     {
                         _product2 = null;
-                        return;
+                        return null;
                     }
                     else
                     {
                         _product3 = null;
-                        return;
+                        return null;
                     }
                 }
             }
+
+            return null;
         }
 
         public void EmptyCart()
