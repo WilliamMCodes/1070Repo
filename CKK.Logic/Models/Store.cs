@@ -10,9 +10,20 @@ namespace CKK.Logic.Models
     {
         private int _id;
         private string _name;
-        private Product _product1;
-        private Product _product2;
-        private Product _product3;
+        private List<StoreItem> _storeInventory;
+
+        public Store(int id = 11111111, string name = "New Store")
+        {
+            _storeInventory = new List<StoreItem>();
+            _id = id;
+            _name = name;
+        }
+        public Store(List<StoreItem> inventory, int id = 11111111, string name = "New Store")
+        {
+            _storeInventory = inventory;
+            _id = id;
+            _name = name;
+        }
 
         public int GetId()
         {
@@ -32,63 +43,63 @@ namespace CKK.Logic.Models
             _name = name;
         }
 
-        public void AddStoreItem(Product prod)
+        public StoreItem AddStoreItem(Product prod, int quantity)
         {
-            if (_product1 == null)
+            if (quantity > 0)
             {
-                _product1 = prod;
-            }
-            else if(_product2 == null)
-            {
-                _product2 = prod;
-            }
-            else if(_product3 == null)
-            {
-                _product3 = prod;
-            }
-        }
-
-        public void RemoveStoreItem(int productNumber)
-        {
-            switch (productNumber)
-            {
-                case 1:
-                    _product1 = null;
-                    break;
-                case 2:
-                    _product2 = null;
-                    break;
-                case 3:
-                    _product3 = null;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public Product GetStoreItem(int productNumber)
-        {
-            switch (productNumber)
-            {
-                case 1:
-                    return _product1;
-                case 2:
-                    return _product2;
-                case 3:
-                    return _product3;
-                default:
-                    return null;
-            }
-        }
-
-        public Product FindStoreItemById(int id)
-        {
-            List<Product> thisStoresItems = new List<Product>{ _product1, _product2, _product3 };
-            foreach(Product prod in thisStoresItems)
-            {
-                if(id == prod.GetId())
+                StoreItem targetItem = new StoreItem(prod, quantity);
+                if (_storeInventory.Contains(targetItem))
                 {
-                    return prod;
+                    foreach (StoreItem item in _storeInventory)
+                    {
+                        if (item.GetProduct().GetId() == prod.GetId())
+                        {
+                            item.SetQuantity(item.GetQuantity() + quantity);
+                            return item;
+                        }
+                    }
+                }
+                else
+                {
+                    _storeInventory.Add(targetItem);
+                    return _storeInventory[_storeInventory.IndexOf(targetItem)];
+                }
+            }
+
+            return null;
+        }
+
+        public StoreItem RemoveStoreItem(int id, int quantity)
+        {
+            foreach (StoreItem item in _storeInventory)
+            {
+                if (item.GetProduct().GetId() == id)
+                {
+                    item.SetQuantity(item.GetQuantity() - quantity);
+                    if (item.GetQuantity() < 0)
+                    {
+                        item.SetQuantity(0);
+                    }
+
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
+        public List<StoreItem> GetStoreItems()
+        {
+            return _storeInventory;
+        }
+
+        public StoreItem FindStoreItemById(int id)
+        {
+            foreach( StoreItem item in _storeInventory)
+            {
+                if (item.GetProduct().GetId() == id)
+                {
+                    return item;
                 }
             }
 
