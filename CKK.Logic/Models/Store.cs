@@ -43,26 +43,21 @@ namespace CKK.Logic.Models
             _name = name;
         }
 
-        public StoreItem AddStoreItem(Product prod, int quantity)
+        public StoreItem AddStoreItem(Product prod, int quantity = 1)
         {
             if (quantity > 0)
             {
-                StoreItem targetItem = new StoreItem(prod, quantity);
-                if (_storeInventory.Contains(targetItem))
+                
+                if(FindStoreItemById(prod.GetId()) == null)
                 {
-                    foreach (StoreItem item in _storeInventory)
-                    {
-                        if (item.GetProduct().GetId() == prod.GetId())
-                        {
-                            item.SetQuantity(item.GetQuantity() + quantity);
-                            return item;
-                        }
-                    }
+                    var targetItem = new StoreItem(prod, quantity);
+                    _storeInventory.Add(targetItem);
+                    return targetItem;
                 }
                 else
                 {
-                    _storeInventory.Add(targetItem);
-                    return _storeInventory[_storeInventory.IndexOf(targetItem)];
+                    FindStoreItemById(prod.GetId()).SetQuantity(FindStoreItemById(prod.GetId()).GetQuantity() + quantity);
+                    return FindStoreItemById(prod.GetId());
                 }
             }
 
@@ -71,9 +66,10 @@ namespace CKK.Logic.Models
 
         public StoreItem RemoveStoreItem(int id, int quantity)
         {
-            foreach (StoreItem item in _storeInventory)
+            if (quantity > 0)
             {
-                if (item.GetProduct().GetId() == id)
+                var item = FindStoreItemById(id);
+                if (item != null)
                 {
                     item.SetQuantity(item.GetQuantity() - quantity);
                     if (item.GetQuantity() < 0)
@@ -84,6 +80,7 @@ namespace CKK.Logic.Models
                     return item;
                 }
             }
+            
 
             return null;
         }
@@ -95,16 +92,17 @@ namespace CKK.Logic.Models
 
         public StoreItem FindStoreItemById(int id)
         {
-            foreach( StoreItem item in _storeInventory)
+            var targetItem =
+                from item in _storeInventory
+                where item.GetProduct().GetId() == id
+                select item;
+
+            if (targetItem.Any())
             {
-                if (item.GetProduct().GetId() == id)
-                {
-                    return item;
-                }
+                return targetItem.Single();
             }
 
             return null;
-
         }
     }
 }

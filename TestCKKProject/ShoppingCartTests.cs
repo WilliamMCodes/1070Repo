@@ -60,12 +60,10 @@ namespace TestCKKProject
         }
         //makes sure that the proper quantities were entered and that product b wasn't added because the cart was full
         [Fact]
-        public void ShoppingCartFullTest()
+        public void ShoppingCartTest()
         {
-
             PrepTests();
-            Assert.True(shoppingCartFull.GetProduct(1).GetQuantity() + shoppingCartFull.GetProduct(2).GetQuantity() +
-                shoppingCartFull.GetProduct(3).GetQuantity() == 4 && shoppingCartFull.GetProductById(productB.GetId()) == null);
+            Assert.True(shoppingCartFull.GetProducts()[0].GetQuantity() == 2 && shoppingCartFull.GetProducts().Count == 4);
         }
 
         //makes sure that items are added to like items and not just in empty spaces
@@ -73,8 +71,8 @@ namespace TestCKKProject
         public void ShoppingcartTwoItemsTest()
         {
             PrepTests();
-            Assert.True(shoppingCartTwoItems.GetProduct(1).GetProduct().GetId() == productE.GetId() && shoppingCartTwoItems.GetProduct(2).GetProduct().GetId() == productB.GetId()
-                && shoppingCartTwoItems.GetProduct(3) == null && shoppingCartTwoItems.GetProduct(1).GetQuantity() == 3);
+            Assert.True(shoppingCartTwoItems.GetProducts()[0].GetProduct().GetId() == productE.GetId() && shoppingCartTwoItems.GetProducts()[1].GetProduct().GetId() == productB.GetId()
+                && shoppingCartTwoItems.GetProducts()[2] == null && shoppingCartTwoItems.GetProducts()[0].GetQuantity() == 3);
         }
 
 
@@ -82,19 +80,19 @@ namespace TestCKKProject
         public void TestRemoveProductShoppingCartFull()
         {
             PrepTests();
-            shoppingCartFull.RemoveProduct(productA, 1);
-            shoppingCartFull.RemoveProduct(productC, 1);
-            shoppingCartFull.RemoveProduct(productD, 1);
+            shoppingCartFull.RemoveProduct(productA.GetId(), 1);
+            shoppingCartFull.RemoveProduct(productC.GetId(), 1);
+            shoppingCartFull.RemoveProduct(productD.GetId(), 1);
 
-            Assert.True(shoppingCartFull.GetProduct(1).GetQuantity() == 1 && shoppingCartFull.GetProduct(2) == null);
+            Assert.True(shoppingCartFull.GetProducts()[0].GetQuantity() == 1 && shoppingCartFull.GetProducts()[1] == null);
         }
 
         [Fact]
         public void TestRemoveProductShoppingCartTwoItems()
         {
             PrepTests();
-            shoppingCartTwoItems.RemoveProduct(productE, 1);
-            shoppingCartTwoItems.RemoveProduct(productB, 2);
+            shoppingCartTwoItems.RemoveProduct(productE.GetId(), 1);
+            shoppingCartTwoItems.RemoveProduct(productB.GetId(), 2);
 
             Assert.True(shoppingCartTwoItems.GetProductById(productB.GetId()) == null && shoppingCartTwoItems.GetProductById(productE.GetId()).GetQuantity() == 2);
         }
@@ -114,7 +112,7 @@ namespace TestCKKProject
             PrepTests();
             shoppingCartEmpty.EmptyCart();
 
-            Assert.True(shoppingCartEmpty.GetProduct(1) == null);
+            Assert.True(shoppingCartEmpty.GetProducts().Count == 0);
         }
     }
 }

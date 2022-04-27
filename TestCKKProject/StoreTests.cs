@@ -1,4 +1,5 @@
 ﻿using CKK.Logic.Models;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Sdk;
 
@@ -49,98 +50,36 @@ namespace StructuredProject1.Logic.TestsForStudents
         }
 
         [Fact]
-        public void AddStoreItem_ShouldAddProductToNextSpot_FromEmpty()
+        public void AddStoreItem_With_Existing()
         {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var expected = new Product();
-                store.AddStoreItem(expected);
-                //Act
-                var actual = store.GetStoreItem(1);
-                //Assert
-                Assert.Equal(expected, actual);
-            }
-            catch
-            {
-                throw new XunitException("The product was not populated correctly.");
-            }
-        }
+            var prod1 = new Product();
+            var prod2 = new Product();
+            prod1.SetId(11111111);
+            prod2.SetId(22222222);
+            List<StoreItem> inventory = new List<StoreItem> { new StoreItem(prod1, 5), new StoreItem(prod2, 2) };
+            var testStore = new Store(inventory);
+
+            var expected = new StoreItem(prod1, 8);
+            var actual = testStore.AddStoreItem(prod1, 3);
+
+            Assert.True(expected.GetProduct().GetId() == actual.GetProduct().GetId() && expected.GetQuantity() == actual.GetQuantity());
+        } 
+
+        
 
         [Fact]
-        public void AddStoreItem_ShouldAddProductToNextSpot_OneFull()
+        public void AddStoreItem_NewItem()
         {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var product1 = new Product();
-                var expected = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(expected);
+            var prod1 = new Product();
+            var prod2 = new Product();
+            prod1.SetId(11111111);
+            prod2.SetId(22222222);
+            List<StoreItem> inventory = new List<StoreItem> { new StoreItem(prod1, 5) };
+            var testStore = new Store(inventory);
+            var expected = new StoreItem(prod2, 80);
+            var actual = testStore.AddStoreItem(prod2, 80);
 
-                //Act
-                var actual = store.GetStoreItem(2);
-                //Assert
-                Assert.Equal(expected, actual);
-            }
-            catch
-            {
-                throw new XunitException("The product was not populated correctly.");
-            }
-        }
-
-        [Fact]
-        public void AddStoreItem_ShouldAddProductToNextSpot_TwoFull()
-        {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var product1 = new Product();
-                var product2 = new Product();
-                var expected = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(expected);
-
-                //Act
-                var actual = store.GetStoreItem(3);
-                //Assert
-                Assert.Equal(expected, actual);
-            }
-            catch
-            {
-                throw new XunitException("The product was not populated correctly.");
-            }
-        }
-        [Fact]
-        public void AddStoreProduct_NoSpotsAvailable()
-        {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var product1 = new Product();
-                var product2 = new Product();
-                var product3 = new Product();
-                var expected = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(product3);
-                store.AddStoreItem(expected);
-
-                //Act
-                var actual = store.GetStoreItem(3);
-                //Assert
-                Assert.NotEqual(expected, actual);
-                Assert.Equal(product3, actual);
-            }
-            catch
-            {
-                throw new XunitException("The product was not populated when it was not supposed to.");
-            }
+            Assert.True(expected.GetProduct().GetId() == actual.GetProduct().GetId() && expected.GetQuantity() == actual.GetQuantity());
         }
 
         [Fact]
@@ -151,90 +90,24 @@ namespace StructuredProject1.Logic.TestsForStudents
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
+                product1.SetId(11111111);
                 var product2 = new Product();
+                product2.SetId(22222222);
                 var product3 = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(product3);
+                product3.SetId(33333333);
+                store.AddStoreItem(product1, 2);
+                store.AddStoreItem(product2, 54);
+                store.AddStoreItem(product3, 3);
 
                 //Act
-                store.RemoveStoreItem(1);
+                store.RemoveStoreItem(11111111, 2);
 
                 //Assert
-                Assert.Null(store.GetStoreItem(1));
-            }catch
-            {
-                throw new XunitException("The item was not removed correctly");
-            }
-        }
-
-        [Fact]
-        public void RemoveStoreItem_ShouldNotShiftItems()
-        {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var product1 = new Product();
-                var product2 = new Product();
-                var product3 = new Product();
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product2);
-                store.AddStoreItem(product3);
-
-                //Act
-
-                store.RemoveStoreItem(2);
-                var actual = store.GetStoreItem(2);
-                //Assert
-                Assert.Null(store.GetStoreItem(2));
-                Assert.Equal(product1, store.GetStoreItem(1));
-            }catch
-            {
-                throw new XunitException("The item did not get removed correctly!");
-            }
-        }
-
-        [Fact]
-        public void GetStoreItem_ShouldReturnCorrectItem()
-        {
-            try
-            {
-                //Assemble
-                Store store = new();
-                var product1 = new Product();
-                var expected = new Product();
-
-                store.AddStoreItem(product1);
-                store.AddStoreItem(product1);
-                store.AddStoreItem(expected);
-
-                //Act
-                var actual = store.GetStoreItem(3);
-
-                //Assert
-                Assert.Equal(expected, actual);
+                Assert.True(store.GetStoreItems()[0].GetQuantity() == 0);
             }
             catch
             {
-                throw new XunitException("The correct Item was not returned!");
-            }
-        }
-
-        [Fact]
-        public void GetStoreItem_ShouldReturnNull()
-        {
-            try
-            {
-                //Assemble
-                Store store = new();
-                //Act
-
-                //Assert
-                Assert.Null(store.GetStoreItem(1));
-            }catch
-            {
-                throw new XunitException("The correct value was not given! Should have returned null.");
+                throw new XunitException("The item was not removed correctly");
             }
         }
 
@@ -259,7 +132,7 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var actual = store.FindStoreItemById(3);
 
                 //Assert
-                Assert.Equal(expected, actual);
+                Assert.Equal(expected.GetId(), actual.GetProduct().GetId());
             }catch
             {
                 throw new XunitException("Did not return the correct item.");
@@ -319,7 +192,7 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var actual = store.FindStoreItemById(1);
 
                 //Assert
-                Assert.Equal(expected, actual);
+                Assert.Equal(expected.GetId(), actual.GetProduct().GetId());
             }
             catch
             {

@@ -22,70 +22,47 @@ namespace CKK.Logic.Models
             return _customer.GetId();
         }
 
-        public ShoppingCartItem  AddProduct(Product prod, int quantity)
+        public ShoppingCartItem  AddProduct(Product prod, int quantity = 1)
         {
-            ShoppingCartItem targetItem = new ShoppingCartItem(prod, quantity);
             if (quantity <= 0)
             {
                 return null;
             }
-
-            var itemInCart =
-                from item in _shoppingCartItems
-                where item.GetProduct() == targetItem.GetProduct()
-                select _shoppingCartItems.IndexOf(item);
-
-            if (itemInCart.Any())
+            if (GetProductById(prod.GetId()) == null)
             {
-                _shoppingCartItems[itemInCart.Single()].SetQuantity(_shoppingCartItems[itemInCart.Single()].GetQuantity() + quantity);
-                return _shoppingCartItems[itemInCart.Single()];
+                var targetItem = new ShoppingCartItem(prod, quantity);
+                _shoppingCartItems.Add(targetItem);
+                return targetItem;
             }
             else
             {
-                _shoppingCartItems.Add(new ShoppingCartItem(prod, quantity));
-                return _shoppingCartItems[_shoppingCartItems.IndexOf(targetItem)];
+                GetProductById(prod.GetId()).SetQuantity(GetProductById(prod.GetId()).GetQuantity() + quantity);
+                return GetProductById(prod.GetId());
             }
         }
 
-        public ShoppingCartItem AddProduct(Product prod)
-        {
-            var targetItem =
-                from item in _shoppingCartItems
-                where item.GetProduct() == prod
-                select _shoppingCartItems.IndexOf(item);
-
-            if (targetItem.Any())
-            {
-                _shoppingCartItems[targetItem.Single()].SetQuantity(_shoppingCartItems[targetItem.Single()].GetQuantity() + 1);
-                return _shoppingCartItems[targetItem.Single()];
-            }
-            else
-            {
-                _shoppingCartItems.Add(new ShoppingCartItem(prod, 1));
-                return _shoppingCartItems.Last();
-            }
-        }
-
-        public ShoppingCartItem RemoveProduct(Product prod, int quantity)
+        public ShoppingCartItem RemoveProduct(int id, int quantity)
         {
             if (quantity <= 0)
             {
                 return null;
             }
 
-            if(GetProductById(prod.GetId()) != null)
+            if(GetProductById(id) != null)
             {
-                if (GetProductById(prod.GetId()).GetQuantity() > quantity)
+                if (GetProductById(id).GetQuantity() > quantity)
                 {
-                    GetProductById(prod.GetId()).SetQuantity(GetProductById(prod.GetId()).GetQuantity() - quantity);
-                    return GetProductById(prod.GetId());
+                    GetProductById(id).SetQuantity(GetProductById(id).GetQuantity() - quantity);
+                    return GetProductById(id);
                 }
                 else
                 {
-                    _shoppingCartItems.Remove(GetProductById(prod.GetId()));
+                    var storeItem = GetProductById(id);
+                    _shoppingCartItems.Remove(GetProductById(id));
+                    storeItem.SetQuantity(0);
+                    return storeItem;
                 }
             }
-
             return null;
         }
 
