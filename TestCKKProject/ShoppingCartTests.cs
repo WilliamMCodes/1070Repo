@@ -9,9 +9,9 @@ namespace TestCKKProject
 {
     public class ShoppingCartTests
     {
-        CKK.Logic.Models.Customer customerAlpha = new CKK.Logic.Models.Customer();
-        CKK.Logic.Models.Customer customerBravo = new CKK.Logic.Models.Customer();
-        CKK.Logic.Models.Customer customerCharlie = new CKK.Logic.Models.Customer();
+        CKK.Logic.Models.Customer customerAlpha = new CKK.Logic.Models.Customer(1,"Alpha", "here");
+        CKK.Logic.Models.Customer customerBravo = new CKK.Logic.Models.Customer(2, "Bravo", "there");
+        CKK.Logic.Models.Customer customerCharlie = new CKK.Logic.Models.Customer(3, "Charlie", "and back again");
 
         CKK.Logic.Models.ShoppingCart shoppingCartFull;
         CKK.Logic.Models.ShoppingCart shoppingCartEmpty;
@@ -27,22 +27,22 @@ namespace TestCKKProject
         [Fact]
         public void PrepTests()
         {
-            customerAlpha.SetId(111111);
-            customerBravo.SetId(222222);
-            customerCharlie.SetId(333333);
+            customerAlpha.Id = 111111;
+            customerBravo.Id = 222222;
+            customerCharlie.Id = 333333;
             shoppingCartFull = new CKK.Logic.Models.ShoppingCart(customerAlpha);
             shoppingCartEmpty = new CKK.Logic.Models.ShoppingCart(customerBravo);
             shoppingCartTwoItems = new CKK.Logic.Models.ShoppingCart(customerCharlie);
-            productA.SetId(123456);
-            productA.SetPrice((decimal)2.43);
-            productB.SetId(548769);
-            productB.SetPrice((decimal)1.16);
-            productC.SetId(813442);
-            productC.SetPrice((decimal)0.36);
-            productD.SetId(664211);
-            productD.SetPrice((decimal)111.25);
-            productE.SetId(552143);
-            productE.SetPrice((decimal)24.98);
+            productA.Id = 123456;
+            productA.Price = 2.43M;
+            productB.Id = 548769;
+            productB.Price = 1.16M;
+            productC.Id = 813442;
+            productC.Price = 0.36M;
+            productD.Id = 664211;
+            productD.Price = 111.25M;
+            productE.Id = 552143;
+            productE.Price = 24.98M;
 
             shoppingCartFull.AddProduct(productA, 2);
             shoppingCartFull.AddProduct(productC);
@@ -63,7 +63,7 @@ namespace TestCKKProject
         public void ShoppingCartTest()
         {
             PrepTests();
-            Assert.True(shoppingCartFull.GetProducts()[0].GetQuantity() == 2 && shoppingCartFull.GetProducts().Count == 4);
+            Assert.True(shoppingCartFull.Products[0].Quantity == 2 && shoppingCartFull.Products.Count == 4);
         }
 
         //makes sure that items are added to like items and not just in empty spaces
@@ -71,8 +71,8 @@ namespace TestCKKProject
         public void ShoppingcartTwoItemsTest()
         {
             PrepTests();
-            Assert.True(shoppingCartTwoItems.GetProducts()[0].GetProduct().GetId() == productE.GetId() && shoppingCartTwoItems.GetProducts()[1].GetProduct().GetId() == productB.GetId()
-                && shoppingCartTwoItems.GetProducts()[2] == null && shoppingCartTwoItems.GetProducts()[0].GetQuantity() == 3);
+            Assert.True(shoppingCartTwoItems.Products[0].Product.Id == productE.Id && shoppingCartTwoItems.Products[1].Product.Id == productB.Id
+                && shoppingCartTwoItems.Products[2] == null && shoppingCartTwoItems.Products[0].Quantity == 3);
         }
 
 
@@ -80,30 +80,30 @@ namespace TestCKKProject
         public void TestRemoveProductShoppingCartFull()
         {
             PrepTests();
-            shoppingCartFull.RemoveProduct(productA.GetId(), 1);
-            shoppingCartFull.RemoveProduct(productC.GetId(), 1);
-            shoppingCartFull.RemoveProduct(productD.GetId(), 1);
+            shoppingCartFull.RemoveProduct(productA.Id, 1);
+            shoppingCartFull.RemoveProduct(productC.Id, 1);
+            shoppingCartFull.RemoveProduct(productD.Id, 1);
 
-            Assert.True(shoppingCartFull.GetProducts()[0].GetQuantity() == 1 && shoppingCartFull.GetProducts()[1] == null);
+            Assert.True(shoppingCartFull.Products[0].Quantity == 1 && shoppingCartFull.Products[1] == null);
         }
 
         [Fact]
         public void TestRemoveProductShoppingCartTwoItems()
         {
             PrepTests();
-            shoppingCartTwoItems.RemoveProduct(productE.GetId(), 1);
-            shoppingCartTwoItems.RemoveProduct(productB.GetId(), 2);
+            shoppingCartTwoItems.RemoveProduct(productE.Id, 1);
+            shoppingCartTwoItems.RemoveProduct(productB.Id, 2);
 
-            Assert.True(shoppingCartTwoItems.GetProductById(productB.GetId()) == null && shoppingCartTwoItems.GetProductById(productE.GetId()).GetQuantity() == 2);
+            Assert.True(shoppingCartTwoItems.GetProductById(productB.Id) == null && shoppingCartTwoItems.GetProductById(productE.Id).Quantity == 2);
         }
 
         [Fact]
         public void TestGetTotal()
         {
             PrepTests();
-            Assert.True(shoppingCartFull.GetTotal() == (productA.GetPrice() * 2 + productC.GetPrice() + productD.GetPrice()) &&
-                shoppingCartTwoItems.GetTotal() == productE.GetPrice() * 3 + productB.GetPrice() &&
-                shoppingCartEmpty.GetTotal() == productA.GetPrice() * 2 + productB.GetPrice() * 8);
+            Assert.True(shoppingCartFull.GetTotal() == (productA.Price * 2 + productC.Price + productD.Price) &&
+                shoppingCartTwoItems.GetTotal() == productE.Price * 3 + productB.Price &&
+                shoppingCartEmpty.GetTotal() == productA.Price * 2 + productB.Price * 8);
         }
 
         [Fact]
@@ -112,7 +112,7 @@ namespace TestCKKProject
             PrepTests();
             shoppingCartEmpty.EmptyCart();
 
-            Assert.True(shoppingCartEmpty.GetProducts().Count == 0);
+            Assert.True(shoppingCartEmpty.Products.Count == 0);
         }
     }
 }

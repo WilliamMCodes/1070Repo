@@ -15,8 +15,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 Product product = new Product();
                 int expected = 65432;
                 //Act
-                product.SetId(expected);
-                int actual = product.GetId();
+                product.Id = expected;
+                int actual = product.Id;
                 //Assert
                 Assert.Equal(expected, actual);
             }catch
@@ -35,8 +35,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var expected = "David Everton";
 
                 //Act
-                product.SetName(expected);
-                var actual = product.GetName();
+                product.Name = expected;
+                var actual = product.Name;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -57,8 +57,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var expected = 4321.56754m;
 
                 //Act
-                product.SetPrice(expected);
-                var actual = product.GetPrice();
+                product.Price = expected;
+                var actual = product.Price;
 
                 //Assert
                 Assert.Equal(expected, actual);

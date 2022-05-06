@@ -8,21 +8,21 @@ namespace CKK.Logic.Models
 {
     public class ShoppingCart
     {
-        private Customer _customer;
-        private List<ShoppingCartItem> _shoppingCartItems;
+        public Customer Customer { get; set; }
+        public List<ShoppingCartItem> Products { get; set; }
 
         public ShoppingCart(Customer cust)
         {
-            _customer = cust;
-            _shoppingCartItems = new List<ShoppingCartItem>();
+            Customer = cust;
+            Products = new List<ShoppingCartItem>();
         }
 
         public int GetCustomerId()
         {
-            return _customer.Id;
+            return Customer.Id;
         }
 
-        public ShoppingCartItem  AddProduct(Product prod, int quantity = 1)
+        public ShoppingCartItem AddProduct(Product prod, int quantity = 1)
         {
             if (quantity <= 0)
             {
@@ -31,7 +31,7 @@ namespace CKK.Logic.Models
             if (GetProductById(prod.Id) == null)
             {
                 var targetItem = new ShoppingCartItem(prod, quantity);
-                _shoppingCartItems.Add(targetItem);
+                Products.Add(targetItem);
                 return targetItem;
             }
             else
@@ -48,7 +48,7 @@ namespace CKK.Logic.Models
                 return null;
             }
 
-            if(GetProductById(id) != null)
+            if (GetProductById(id) != null)
             {
                 if (GetProductById(id).Quantity > quantity)
                 {
@@ -58,7 +58,7 @@ namespace CKK.Logic.Models
                 else
                 {
                     var storeItem = GetProductById(id);
-                    _shoppingCartItems.Remove(GetProductById(id));
+                    Products.Remove(GetProductById(id));
                     storeItem.Quantity = 0;
                     return storeItem;
                 }
@@ -68,18 +68,18 @@ namespace CKK.Logic.Models
 
         public void EmptyCart()
         {
-            _shoppingCartItems.Clear();
+            Products.Clear();
         }
 
         public ShoppingCartItem GetProductById(int id)
         {
             var targetItem =
-                from item in _shoppingCartItems
+                from item in Products
                 where item.Product.Id == id
-                select _shoppingCartItems.IndexOf(item);
+                select Products.IndexOf(item);
             if (targetItem.Any())
             {
-                return _shoppingCartItems[targetItem.Single()];
+                return Products[targetItem.Single()];
             }
 
             return null;
@@ -89,7 +89,7 @@ namespace CKK.Logic.Models
         {
             decimal total = 0.0M;
             var itemCosts =
-                from item in _shoppingCartItems
+                from item in Products
                 let cost = item.Product.Price * item.Quantity
                 select cost;
 
@@ -99,11 +99,6 @@ namespace CKK.Logic.Models
             }
 
             return total;
-        }
-
-        public List<ShoppingCartItem> GetProducts()
-        {
-            return _shoppingCartItems;
         }
     }
 }
