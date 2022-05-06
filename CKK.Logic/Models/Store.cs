@@ -6,41 +6,17 @@ using System.Threading.Tasks;
 
 namespace CKK.Logic.Models
 {
-     public class Store
+     public class Store :  Entity
     {
-        private int _id;
-        private string _name;
         private List<StoreItem> _storeInventory;
 
-        public Store(int id = 11111111, string name = "New Store")
+        public Store(int id = 11111111, string name = "New Store") : base(id, name)
         {
             _storeInventory = new List<StoreItem>();
-            _id = id;
-            _name = name;
         }
-        public Store(List<StoreItem> inventory, int id = 11111111, string name = "New Store")
+        public Store(List<StoreItem> inventory, int id = 11111111, string name = "New Store") : base(id, name)
         {
             _storeInventory = inventory;
-            _id = id;
-            _name = name;
-        }
-
-        public int GetId()
-        {
-            return _id;
-        }
-        public void SetId(int id)
-        {
-            _id = id;
-        }
-
-        public string GetName()
-        {
-            return _name;
-        }
-        public void SetName(string name)
-        {
-            _name = name;
         }
 
         public StoreItem AddStoreItem(Product prod, int quantity = 1)
@@ -48,7 +24,7 @@ namespace CKK.Logic.Models
             if (quantity > 0)
             {
                 
-                if(FindStoreItemById(prod.GetId()) == null)
+                if(FindStoreItemById(prod.Id) == null)
                 {
                     var targetItem = new StoreItem(prod, quantity);
                     _storeInventory.Add(targetItem);
@@ -56,8 +32,8 @@ namespace CKK.Logic.Models
                 }
                 else
                 {
-                    FindStoreItemById(prod.GetId()).SetQuantity(FindStoreItemById(prod.GetId()).GetQuantity() + quantity);
-                    return FindStoreItemById(prod.GetId());
+                    FindStoreItemById(prod.Id).Quantity = FindStoreItemById(prod.Id).Quantity + quantity;
+                    return FindStoreItemById(prod.Id);
                 }
             }
 
@@ -71,10 +47,10 @@ namespace CKK.Logic.Models
                 var item = FindStoreItemById(id);
                 if (item != null)
                 {
-                    item.SetQuantity(item.GetQuantity() - quantity);
-                    if (item.GetQuantity() < 0)
+                    item.Quantity = item.Quantity - quantity;
+                    if (item.Quantity < 0)
                     {
-                        item.SetQuantity(0);
+                        item.Quantity = 0;
                     }
 
                     return item;
@@ -94,7 +70,7 @@ namespace CKK.Logic.Models
         {
             var targetItem =
                 from item in _storeInventory
-                where item.GetProduct().GetId() == id
+                where item.Product.Id == id
                 select item;
 
             if (targetItem.Any())

@@ -19,7 +19,7 @@ namespace CKK.Logic.Models
 
         public int GetCustomerId()
         {
-            return _customer.GetId();
+            return _customer.Id;
         }
 
         public ShoppingCartItem  AddProduct(Product prod, int quantity = 1)
@@ -28,7 +28,7 @@ namespace CKK.Logic.Models
             {
                 return null;
             }
-            if (GetProductById(prod.GetId()) == null)
+            if (GetProductById(prod.Id) == null)
             {
                 var targetItem = new ShoppingCartItem(prod, quantity);
                 _shoppingCartItems.Add(targetItem);
@@ -36,8 +36,8 @@ namespace CKK.Logic.Models
             }
             else
             {
-                GetProductById(prod.GetId()).SetQuantity(GetProductById(prod.GetId()).GetQuantity() + quantity);
-                return GetProductById(prod.GetId());
+                GetProductById(prod.Id).Quantity = GetProductById(prod.Id).Quantity + quantity;
+                return GetProductById(prod.Id);
             }
         }
 
@@ -50,16 +50,16 @@ namespace CKK.Logic.Models
 
             if(GetProductById(id) != null)
             {
-                if (GetProductById(id).GetQuantity() > quantity)
+                if (GetProductById(id).Quantity > quantity)
                 {
-                    GetProductById(id).SetQuantity(GetProductById(id).GetQuantity() - quantity);
+                    GetProductById(id).Quantity = GetProductById(id).Quantity - quantity;
                     return GetProductById(id);
                 }
                 else
                 {
                     var storeItem = GetProductById(id);
                     _shoppingCartItems.Remove(GetProductById(id));
-                    storeItem.SetQuantity(0);
+                    storeItem.Quantity = 0;
                     return storeItem;
                 }
             }
@@ -75,7 +75,7 @@ namespace CKK.Logic.Models
         {
             var targetItem =
                 from item in _shoppingCartItems
-                where item.GetProduct().GetId() == id
+                where item.Product.Id == id
                 select _shoppingCartItems.IndexOf(item);
             if (targetItem.Any())
             {
@@ -90,7 +90,7 @@ namespace CKK.Logic.Models
             decimal total = 0.0M;
             var itemCosts =
                 from item in _shoppingCartItems
-                let cost = item.GetProduct().GetPrice() * item.GetQuantity()
+                let cost = item.Product.Price * item.Quantity
                 select cost;
 
             foreach (decimal cost in itemCosts)
