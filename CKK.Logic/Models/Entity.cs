@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CKK.Logic.Models
+namespace CKK.Logic.Interfaces
 {
     public abstract class Entity
     {
