@@ -11,7 +11,7 @@ namespace CKK.Logic.Models
     {
         public string Address { get; set; }
 
-        public Customer(string name, string address, int id = 00000001) : base(id, name)
+        public Customer(int id = 00000001, string name = "New Customer", string address = "888 Some Rd This Town, This State 00000") : base(id, name)
         {
             Address = address;
         }
