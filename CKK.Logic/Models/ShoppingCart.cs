@@ -7,7 +7,7 @@ using CKK.Logic.Interfaces;
 
 namespace CKK.Logic.Models
 {
-    public class ShoppingCart
+    public class ShoppingCart : IShoppingCart
     {
         public Customer Customer { get; set; }
         public List<ShoppingCartItem> Products { get; set; }
@@ -100,6 +100,11 @@ namespace CKK.Logic.Models
             }
 
             return total;
+        }
+
+        public List<ShoppingCartItem> GetProducts()
+        {
+            return Products;
         }
     }
 }
