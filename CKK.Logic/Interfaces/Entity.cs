@@ -6,6 +6,7 @@ namespace CKK.Logic.Interfaces
 {
     public abstract class Entity
     {
+        private int id;
         public string Name { get; set; }
 
         public Entity(int id, string name)
@@ -18,7 +19,7 @@ namespace CKK.Logic.Interfaces
         {
             get
             {
-                return Id;
+                return id;
             }
             set
             {
@@ -26,6 +27,7 @@ namespace CKK.Logic.Interfaces
                 {
                     throw new InvalidIdException(value);
                 }
+                id = value;
             }
         }
     }
