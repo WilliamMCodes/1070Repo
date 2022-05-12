@@ -16,8 +16,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 Store store = new();
                 int expected = 54321;
                 //Act
-                store.SetId(expected);
-                int actual = store.GetId();
+                store.Id = expected;
+                int actual = store.Id;
                 //Assert
                 Assert.Equal(expected, actual);
             }
@@ -37,8 +37,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var expected = "David Everton";
 
                 //Act
-                store.SetName(expected);
-                var actual = store.GetName();
+                store.Name = expected;
+                var actual = store.Name;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -54,15 +54,15 @@ namespace StructuredProject1.Logic.TestsForStudents
         {
             var prod1 = new Product();
             var prod2 = new Product();
-            prod1.SetId(11111111);
-            prod2.SetId(22222222);
+            prod1.Id = 11111111;
+            prod2.Id = 22222222;
             List<StoreItem> inventory = new List<StoreItem> { new StoreItem(prod1, 5), new StoreItem(prod2, 2) };
             var testStore = new Store(inventory);
 
             var expected = new StoreItem(prod1, 8);
             var actual = testStore.AddStoreItem(prod1, 3);
 
-            Assert.True(expected.GetProduct().GetId() == actual.GetProduct().GetId() && expected.GetQuantity() == actual.GetQuantity());
+            Assert.True(expected.Product.Id == actual.Product.Id && expected.Quantity == actual.Quantity);
         } 
 
         
@@ -72,14 +72,14 @@ namespace StructuredProject1.Logic.TestsForStudents
         {
             var prod1 = new Product();
             var prod2 = new Product();
-            prod1.SetId(11111111);
-            prod2.SetId(22222222);
+            prod1.Id = 11111111;
+            prod2.Id = 22222222;
             List<StoreItem> inventory = new List<StoreItem> { new StoreItem(prod1, 5) };
             var testStore = new Store(inventory);
             var expected = new StoreItem(prod2, 80);
             var actual = testStore.AddStoreItem(prod2, 80);
 
-            Assert.True(expected.GetProduct().GetId() == actual.GetProduct().GetId() && expected.GetQuantity() == actual.GetQuantity());
+            Assert.True(expected.Product.Id == actual.Product.Id && expected.Quantity == actual.Quantity);
         }
 
         [Fact]
@@ -90,11 +90,11 @@ namespace StructuredProject1.Logic.TestsForStudents
                 //Assemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(11111111);
+                product1.Id = 11111111;
                 var product2 = new Product();
-                product2.SetId(22222222);
+                product2.Id = 22222222;
                 var product3 = new Product();
-                product3.SetId(33333333);
+                product3.Id = 33333333;
                 store.AddStoreItem(product1, 2);
                 store.AddStoreItem(product2, 54);
                 store.AddStoreItem(product3, 3);
@@ -103,7 +103,7 @@ namespace StructuredProject1.Logic.TestsForStudents
                 store.RemoveStoreItem(11111111, 2);
 
                 //Assert
-                Assert.True(store.GetStoreItems()[0].GetQuantity() == 0);
+                Assert.True(store.GetStoreItems()[0].Quantity == 0);
             }
             catch
             {
@@ -119,11 +119,11 @@ namespace StructuredProject1.Logic.TestsForStudents
                 //Asemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = 1;
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = 2;
                 var expected = new Product();
-                expected.SetId(3);
+                expected.Id = 3;
 
                 store.AddStoreItem(product1);
                 store.AddStoreItem(product2);
@@ -132,7 +132,7 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var actual = store.FindStoreItemById(3);
 
                 //Assert
-                Assert.Equal(expected.GetId(), actual.GetProduct().GetId());
+                Assert.Equal(expected.Id, actual.Product.Id);
             }catch
             {
                 throw new XunitException("Did not return the correct item.");
@@ -147,11 +147,11 @@ namespace StructuredProject1.Logic.TestsForStudents
                 //Asemble
                 Store store = new();
                 var product1 = new Product();
-                product1.SetId(1);
+                product1.Id = 1;
                 var product2 = new Product();
-                product2.SetId(2);
+                product2.Id = 2;
                 var expected = new Product();
-                expected.SetId(3);
+                expected.Id = 3;
 
                 store.AddStoreItem(product1);
                 store.AddStoreItem(product2);
@@ -178,11 +178,11 @@ namespace StructuredProject1.Logic.TestsForStudents
                 //Asemble
                 Store store = new();
                 var expected = new Product();
-                expected.SetId(1);
+                expected.Id = 1;
                 var product2 = new Product();
-                product2.SetId(1);
+                product2.Id = 1;
                 var product3 = new Product();
-                product3.SetId(1);
+                product3.Id = 1;
 
                 store.AddStoreItem(expected);
                 store.AddStoreItem(product2);
@@ -192,7 +192,7 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var actual = store.FindStoreItemById(1);
 
                 //Assert
-                Assert.Equal(expected.GetId(), actual.GetProduct().GetId());
+                Assert.Equal(expected.Id, actual.Product.Id);
             }
             catch
             {

@@ -15,8 +15,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 Customer customer = new Customer();
                 int expected = 65432;
                 //Act
-                customer.SetId(expected);
-                int actual = customer.GetId();
+                customer.Id = expected;
+                int actual = customer.Id;
                 //Assert
                 Assert.Equal(expected, actual);
             }catch
@@ -35,8 +35,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var expected = "David Everton";
 
                 //Act
-                customer.SetName(expected);
-                var actual = customer.GetName();
+                customer.Name =expected;
+                var actual = customer.Name;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -57,8 +57,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var expected = "1600 Pennsylvania Ave";
 
                 //Act
-                customer.SetAddress(expected);
-                var actual = customer.GetAddress();
+                customer.Address = expected;
+                var actual = customer.Address;
 
                 //Assert
                 Assert.Equal(expected, actual);

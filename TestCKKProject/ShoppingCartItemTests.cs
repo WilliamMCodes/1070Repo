@@ -13,10 +13,10 @@ namespace StructuredProject1.Logic.TestsForStudents
             {
                 //Assemble
                 Product testProduct = new Product();
-                testProduct.SetId(2);
+                testProduct.Id = 2;
                 var cartItem = new ShoppingCartItem(testProduct, 1);
                 //Act
-                var actual = cartItem.GetProduct();
+                var actual = cartItem.Product;
                 //Assert
                 Assert.Equal(testProduct, actual);
             } catch
@@ -33,11 +33,11 @@ namespace StructuredProject1.Logic.TestsForStudents
             {
                 //Assemble
                 Product testProduct = new Product();
-                testProduct.SetId(3);
+                testProduct.Id = 3;
                 var expected = 56;
                 var cartItem = new ShoppingCartItem(testProduct, expected);
                 //Act
-                var actual = cartItem.GetQuantity();
+                var actual = cartItem.Quantity;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -58,8 +58,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var expected = new Product();
                 var cartItem = new ShoppingCartItem(testProduct, 1);
                 //Act
-                cartItem.SetProduct(expected);
-                var actual = cartItem.GetProduct();
+                cartItem.Product = expected;
+                var actual = cartItem.Product;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -78,8 +78,8 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var expected = 13;
                 var cartItem = new ShoppingCartItem(new Product(), 2);
                 //Act
-                cartItem.SetQuantity(expected);
-                var actual = cartItem.GetQuantity();
+                cartItem.Quantity = expected;
+                var actual = cartItem.Quantity;
 
                 //Assert
                 Assert.Equal(expected, actual);
@@ -99,7 +99,7 @@ namespace StructuredProject1.Logic.TestsForStudents
                 var quantity = 2;
                 var expected = 8m;
                 var testProduct = new Product();
-                testProduct.SetPrice(price);
+                testProduct.Price = price;
 
                 var cartItem = new ShoppingCartItem(testProduct, quantity);
                 //Act

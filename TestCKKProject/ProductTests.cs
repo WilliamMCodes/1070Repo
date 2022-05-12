@@ -1,4 +1,5 @@
 ﻿using CKK.Logic.Models;
+using System;
 using Xunit;
 using Xunit.Sdk;
 
@@ -66,6 +67,28 @@ namespace StructuredProject1.Logic.TestsForStudents
             catch
             {
                 throw new XunitException("The Correct Price was not given.");
+            }
+        }
+
+        [Fact]
+        public void InvalidPriceShouldThrowException()
+        {
+            try
+            {
+                bool threwExceptionCorrectly = false;
+                try
+                {
+                    Product product = new Product(price:-1.0m);
+                }
+                catch(ArgumentOutOfRangeException)
+                {
+                    threwExceptionCorrectly = true;
+                }
+                Assert.True(threwExceptionCorrectly);
+            }
+            catch
+            {
+
             }
         }
     }
