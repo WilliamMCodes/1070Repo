@@ -63,7 +63,7 @@ namespace CKK.Logic.Models
                 }
             }
 
-            throw new ArgumentOutOfRangeException("quantity", $"{quantity} is not a vlaid amount to reduce inventory by.");
+            throw new ArgumentOutOfRangeException("quantity", $"{quantity} is not a valid amount to reduce inventory by.");
         }
 
         public List<StoreItem> GetStoreItems()
