@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
@@ -38,12 +39,12 @@ namespace CKK.Logic.Models
                 }
             }
 
-            return null;
+            throw new InventoryItemStockTooLowException(quantity);
         }
 
         public StoreItem RemoveStoreItem(int id, int quantity)
         {
-            if (quantity > 0)
+            if (quantity >= 0)
             {
                 var item = FindStoreItemById(id);
                 if (item != null)
@@ -56,10 +57,13 @@ namespace CKK.Logic.Models
 
                     return item;
                 }
+                else
+                {
+                    throw new ProductDoesNotExistException(id);
+                }
             }
-            
 
-            return null;
+            throw new ArgumentOutOfRangeException("quantity", $"{quantity} is not a vlaid amount to reduce inventory by.");
         }
 
         public List<StoreItem> GetStoreItems()
@@ -69,6 +73,10 @@ namespace CKK.Logic.Models
 
         public StoreItem FindStoreItemById(int id)
         {
+            if(id < 0)
+            {
+                throw new InvalidIdException(id);
+            }
             var targetItem =
                 from item in _storeInventory
                 where item.Product.Id == id

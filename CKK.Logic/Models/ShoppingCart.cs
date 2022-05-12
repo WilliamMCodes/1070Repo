@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
+using CKK.Logic.Exceptions;
 
 namespace CKK.Logic.Models
 {
@@ -27,7 +28,7 @@ namespace CKK.Logic.Models
         {
             if (quantity <= 0)
             {
-                return null;
+                throw new InventoryItemStockTooLowException(quantity);
             }
             if (GetProductById(prod.Id) == null)
             {
@@ -44,9 +45,9 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem RemoveProduct(int id, int quantity)
         {
-            if (quantity <= 0)
+            if (quantity < 0)
             {
-                return null;
+                throw new ArgumentOutOfRangeException("quantity", $"{quantity} is not a valid amount to reduce quantity by.");
             }
 
             if (GetProductById(id) != null)
@@ -64,7 +65,7 @@ namespace CKK.Logic.Models
                     return storeItem;
                 }
             }
-            return null;
+            throw new ProductDoesNotExistException(id);
         }
 
         public void EmptyCart()
@@ -74,6 +75,10 @@ namespace CKK.Logic.Models
 
         public ShoppingCartItem GetProductById(int id)
         {
+            if(id < 0)
+            {
+                throw new InvalidIdException(id);
+            }
             var targetItem =
                 from item in Products
                 where item.Product.Id == id
