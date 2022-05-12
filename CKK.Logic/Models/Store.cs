@@ -44,26 +44,27 @@ namespace CKK.Logic.Models
 
         public StoreItem RemoveStoreItem(int id, int quantity)
         {
-            if (quantity >= 0)
+            if (quantity < 0)
             {
-                var item = FindStoreItemById(id);
-                if (item != null)
+                throw new ArgumentOutOfRangeException("quantity", $"{quantity} is not a valid amount to reduce inventory by.");
+            }
+
+            var item = FindStoreItemById(id);
+            if (item != null)
+            {
+                if(item.Quantity >= quantity)
                 {
                     item.Quantity = item.Quantity - quantity;
-                    if (item.Quantity < 0)
-                    {
-                        item.Quantity = 0;
-                    }
-
-                    return item;
                 }
                 else
                 {
-                    throw new ProductDoesNotExistException(id);
+                    item.Quantity = 0;
                 }
+                return item;
             }
 
-            throw new ArgumentOutOfRangeException("quantity", $"{quantity} is not a valid amount to reduce inventory by.");
+            throw new ProductDoesNotExistException(id);
+
         }
 
         public List<StoreItem> GetStoreItems()
