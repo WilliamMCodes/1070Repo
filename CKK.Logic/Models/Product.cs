@@ -9,6 +9,7 @@ namespace CKK.Logic.Models
 {
     public class Product :Entity
     {
+        private decimal price;
         public Product(int id = 10101011, string name = "Thing-a-mabob", decimal price = 1.00M) : base(id, name)
         {
             Price = price;
@@ -16,7 +17,7 @@ namespace CKK.Logic.Models
         
         public decimal Price
         {
-            get => Price;
+            get => price;
 
             set
             {
@@ -24,6 +25,7 @@ namespace CKK.Logic.Models
                 {
                     throw new ArgumentOutOfRangeException("Price", $"{value:D} is not a valid price.");
                 }
+                price = value;
             }
 
         }   
