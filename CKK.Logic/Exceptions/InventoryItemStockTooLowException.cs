@@ -8,7 +8,7 @@ using CKK.Logic.Models;
 
 namespace CKK.Logic.Exceptions
 {
-    class InventoryItemStockTooLowException : Exception
+    public class InventoryItemStockTooLowException : Exception
     {
         public override string Message { get; }
         public InventoryItemStockTooLowException(int quantity)

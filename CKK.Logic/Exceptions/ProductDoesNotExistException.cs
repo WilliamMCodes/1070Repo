@@ -7,7 +7,7 @@ using CKK.Logic.Models;
 
 namespace CKK.Logic.Exceptions
 {
-    class ProductDoesNotExistException: Exception
+    public class ProductDoesNotExistException: Exception
     {
         public override string Message { get; }
         public ProductDoesNotExistException(int id)
