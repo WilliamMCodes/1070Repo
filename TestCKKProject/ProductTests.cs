@@ -73,23 +73,24 @@ namespace StructuredProject1.Logic.TestsForStudents
         [Fact]
         public void InvalidPriceShouldThrowException()
         {
+            bool threwCorrectException = false;
             try
             {
-                bool threwExceptionCorrectly = false;
-                try
-                {
-                    Product product = new Product(price:-1.0m);
-                }
-                catch(ArgumentOutOfRangeException)
-                {
-                    threwExceptionCorrectly = true;
-                }
-                Assert.True(threwExceptionCorrectly);
+                Product product = new Product(price: -1.0m);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                threwCorrectException = true;
+            }
+            try
+            {
+                Assert.True(threwCorrectException);
             }
             catch
             {
-
+                throw new XunitException("Didn't throw correct Exception.");
             }
+
         }
     }
 }

@@ -23,9 +23,12 @@ namespace CKK.Logic.Models
             {
                 if(value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("Price", $"{value:D} is not a valid price.");
+                    throw new ArgumentOutOfRangeException("Price", $"{value:C} is not a valid price.");
                 }
-                price = value;
+                else
+                {
+                    price = value;
+                }
             }
 
         }   

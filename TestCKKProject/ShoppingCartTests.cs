@@ -72,7 +72,7 @@ namespace TestCKKProject
         {
             PrepTests();
             Assert.True(shoppingCartTwoItems.Products[0].Product.Id == productE.Id && shoppingCartTwoItems.Products[1].Product.Id == productB.Id
-                && shoppingCartTwoItems.Products[2] == null && shoppingCartTwoItems.Products[0].Quantity == 3);
+                && shoppingCartTwoItems.Products.Count == 2 && shoppingCartTwoItems.Products[0].Quantity == 3);
         }
 
 
@@ -84,7 +84,7 @@ namespace TestCKKProject
             shoppingCartFull.RemoveProduct(productC.Id, 1);
             shoppingCartFull.RemoveProduct(productD.Id, 1);
 
-            Assert.True(shoppingCartFull.Products[0].Quantity == 1 && shoppingCartFull.Products[1] == null);
+            Assert.True(shoppingCartFull.Products[0].Quantity == 1 && shoppingCartFull.Products[1].Product.Id == productB.Id);
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace TestCKKProject
         public void TestGetTotal()
         {
             PrepTests();
-            Assert.True(shoppingCartFull.GetTotal() == (productA.Price * 2 + productC.Price + productD.Price) &&
+            Assert.True(shoppingCartFull.GetTotal() == (productA.Price * 2 + productC.Price + productD.Price + productB.Price) &&
                 shoppingCartTwoItems.GetTotal() == productE.Price * 3 + productB.Price &&
                 shoppingCartEmpty.GetTotal() == productA.Price * 2 + productB.Price * 8);
         }
