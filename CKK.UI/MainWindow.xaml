@@ -1,0 +1,19 @@
+﻿<Window x:Class="CKK.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CKK.UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="900" Width="1600">
+    <Grid>
+        <Grid HorizontalAlignment="Center" Height="241" VerticalAlignment="Top" Width="1600" Background="#FF61EFE7">
+            <Grid.Effect>
+                <DropShadowEffect/>
+            </Grid.Effect>
+            <TextBox HorizontalAlignment="Left" Margin="140,0,0,0" Text="FirstInitialLastName####" TextWrapping="Wrap" VerticalAlignment="Center" Width="244" FontFamily="Franklin Gothic Demi" FontSize="20" IsReadOnly="True" Foreground="#FFE1E1E8"/>
+        </Grid>
+        <Label Content="Username:" HorizontalAlignment="Left" Height="28" Margin="31,106,0,0" VerticalAlignment="Top" Width="104" FontFamily="Franklin Gothic Demi" FontSize="20"/>
+
+    </Grid>
+</Window>
