@@ -7,7 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600">
     <Grid>
-        <Grid HorizontalAlignment="Center" Height="241" VerticalAlignment="Top" Width="1600" Background="#FF61EFE7">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="197*"/>
+        </Grid.ColumnDefinitions>
+        <Grid HorizontalAlignment="Left" Height="241" VerticalAlignment="Top" Width="1600" Background="#FF61EFE7" Grid.ColumnSpan="2">
             <Grid.Effect>
                 <DropShadowEffect/>
             </Grid.Effect>
@@ -15,8 +19,8 @@
             <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Height="27" Margin="495,0,0,0" VerticalAlignment="Center" Width="235" FontFamily="Franklin Gothic Demi"/>
             <Button x:Name="loginButton" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="90" FontFamily="Franklin Gothic Demi" FontSize="18" Background="#FF88FE85" IsDefault="True"/>
         </Grid>
-        <Label x:Name="userNameLabel" Content="Username:" HorizontalAlignment="Left" Height="28" Margin="31,106,0,0" VerticalAlignment="Top" Width="104" FontFamily="Franklin Gothic Demi" FontSize="20"/>
-        <Label x:Name="passwordLabel" Content="Password:" HorizontalAlignment="Left" Height="28" Margin="392,106,0,0" VerticalAlignment="Top" Width="104" FontFamily="Franklin Gothic Demi" FontSize="20"/>
+        <Label x:Name="userNameLabel" Content="Username:" HorizontalAlignment="Left" Height="28" Margin="7,106,0,0" VerticalAlignment="Top" Width="104" FontFamily="Franklin Gothic Demi" FontSize="20" Grid.Column="1"/>
+        <Label x:Name="passwordLabel" Content="Password:" HorizontalAlignment="Left" Height="28" Margin="368,106,0,0" VerticalAlignment="Top" Width="104" FontFamily="Franklin Gothic Demi" FontSize="20" Grid.Column="1"/>
 
     </Grid>
 </Window>
