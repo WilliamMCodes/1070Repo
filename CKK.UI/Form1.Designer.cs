@@ -1,7 +1,7 @@
 ﻿
 namespace CKK.GUI.WinForms
 {
-    partial class MainForm
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -34,22 +34,20 @@ namespace CKK.GUI.WinForms
             // 
             // loginTool1
             // 
-            this.loginTool1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.loginTool1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.loginTool1.Location = new System.Drawing.Point(437, 242);
+            this.loginTool1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.loginTool1.Location = new System.Drawing.Point(0, -1);
             this.loginTool1.Name = "loginTool1";
-            this.loginTool1.Size = new System.Drawing.Size(330, 163);
+            this.loginTool1.Size = new System.Drawing.Size(1295, 176);
             this.loginTool1.TabIndex = 0;
             // 
-            // MainForm
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(1260, 688);
+            this.ClientSize = new System.Drawing.Size(1295, 683);
             this.Controls.Add(this.loginTool1);
-            this.Name = "MainForm";
-            this.Text = "CKK (Employee Interface)";
+            this.Name = "Form1";
+            this.Text = "CKK Inventory Manager";
             this.ResumeLayout(false);
 
         }
@@ -59,4 +57,3 @@ namespace CKK.GUI.WinForms
         private LoginTool loginTool1;
     }
 }
-

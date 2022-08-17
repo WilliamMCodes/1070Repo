@@ -1,6 +1,9 @@
-﻿
+﻿using System.ComponentModel;
+using System.ComponentModel.Design;
+
 namespace CKK.GUI.WinForms
 {
+    [Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
     partial class LoginTool
     {
         /// <summary> 
@@ -71,6 +74,7 @@ namespace CKK.GUI.WinForms
             // 
             // loginButton
             // 
+            this.loginButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.loginButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Silver;
             this.loginButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkGray;
             this.loginButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -79,12 +83,13 @@ namespace CKK.GUI.WinForms
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 4;
             this.loginButton.Text = "Sign In";
-            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.UseVisualStyleBackColor = false;
             // 
             // LoginTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.userTextBox);
