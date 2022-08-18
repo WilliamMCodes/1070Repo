@@ -58,6 +58,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="InventoryItemBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InventoryItemBar.Designer.cs">
+      <DependentUpon>InventoryItemBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryMultiTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InventoryMultiTab.Designer.cs">
+      <DependentUpon>InventoryMultiTab.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Login Tool.cs">
@@ -71,6 +83,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryItemBar.resx">
+      <DependentUpon>InventoryItemBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryMultiTab.resx">
+      <DependentUpon>InventoryMultiTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
