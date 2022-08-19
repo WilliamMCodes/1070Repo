@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCKKProject", "TestCKKProject\TestCKKProject.csproj", "{7196B581-2033-4E91-B748-47DF939C8700}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CKK.UI", "CKK.UI\CKK.UI.csproj", "{240C8C01-0A19-48AE-AFCC-46403016DF73}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8746F864-C415-4041-A4A0-94F8EB84B1BA} = {8746F864-C415-4041-A4A0-94F8EB84B1BA}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
