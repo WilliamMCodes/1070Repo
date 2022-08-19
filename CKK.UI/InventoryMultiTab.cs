@@ -16,5 +16,41 @@ namespace CKK.GUI.WinForms
         {
             InitializeComponent();
         }
+
+        public event EventHandler logoutButtonClick;
+        public event EventHandler searchButtonClick;
+        public event EventHandler editButtonClick;
+        public event EventHandler addItemButtonClick;
+        public event EventHandler removeButtonClick;
+
+        private void logoutButton_Click(object sender, EventArgs e)
+        {
+            if (logoutButtonClick != null)
+                logoutButtonClick(this, e);
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            if (searchButtonClick != null)
+                searchButtonClick(this, e);
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            if (editButtonClick != null)
+                editButtonClick(this, e);
+        }
+
+        private void addItemButton_Click(object sender, EventArgs e)
+        {
+            if (addItemButtonClick != null)
+                addItemButtonClick(this, e);
+        }
+
+        private void removeItemButton_Click(object sender, EventArgs e)
+        {
+            if (removeButtonClick != null)
+                removeButtonClick(this, e);
+        }
     }
 }

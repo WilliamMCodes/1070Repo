@@ -52,10 +52,10 @@ namespace CKK.GUI.WinForms
             this.tabControl1.Controls.Add(this.inventoryTab);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.ItemSize = new System.Drawing.Size(150, 25);
-            this.tabControl1.Location = new System.Drawing.Point(0, 88);
+            this.tabControl1.Location = new System.Drawing.Point(0, 83);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1316, 632);
+            this.tabControl1.Size = new System.Drawing.Size(1295, 599);
             this.tabControl1.TabIndex = 0;
             // 
             // inventoryTab
@@ -71,7 +71,7 @@ namespace CKK.GUI.WinForms
             this.inventoryTab.Location = new System.Drawing.Point(4, 29);
             this.inventoryTab.Name = "inventoryTab";
             this.inventoryTab.Padding = new System.Windows.Forms.Padding(3);
-            this.inventoryTab.Size = new System.Drawing.Size(1308, 599);
+            this.inventoryTab.Size = new System.Drawing.Size(1287, 566);
             this.inventoryTab.TabIndex = 0;
             this.inventoryTab.Text = "Store Inventory";
             // 
@@ -80,7 +80,7 @@ namespace CKK.GUI.WinForms
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1308, 537);
+            this.tabPage2.Size = new System.Drawing.Size(1287, 566);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "other tabs as needed";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -107,13 +107,14 @@ namespace CKK.GUI.WinForms
             // 
             this.logoutButton.BackColor = System.Drawing.Color.Red;
             this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.logoutButton.Location = new System.Drawing.Point(1237, 5);
+            this.logoutButton.Location = new System.Drawing.Point(1216, 4);
             this.logoutButton.Margin = new System.Windows.Forms.Padding(0);
             this.logoutButton.Name = "logoutButton";
             this.logoutButton.Size = new System.Drawing.Size(75, 25);
             this.logoutButton.TabIndex = 3;
             this.logoutButton.Text = "Log Out";
             this.logoutButton.UseVisualStyleBackColor = false;
+            this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
             // inventoryPanel
             // 
@@ -121,7 +122,7 @@ namespace CKK.GUI.WinForms
             this.inventoryPanel.BackColor = System.Drawing.Color.WhiteSmoke;
             this.inventoryPanel.Location = new System.Drawing.Point(0, 56);
             this.inventoryPanel.Name = "inventoryPanel";
-            this.inventoryPanel.Size = new System.Drawing.Size(1308, 543);
+            this.inventoryPanel.Size = new System.Drawing.Size(1287, 511);
             this.inventoryPanel.TabIndex = 0;
             // 
             // labelSearch
@@ -153,18 +154,22 @@ namespace CKK.GUI.WinForms
             this.searchButton.TabIndex = 3;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = false;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // editButton
             // 
             this.editButton.BackColor = System.Drawing.Color.BlueViolet;
             this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editButton.ForeColor = System.Drawing.Color.White;
+            this.editButton.Image = ((System.Drawing.Image)(resources.GetObject("editButton.Image")));
+            this.editButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.editButton.Location = new System.Drawing.Point(229, 28);
             this.editButton.Name = "editButton";
             this.editButton.Size = new System.Drawing.Size(75, 23);
             this.editButton.TabIndex = 4;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = false;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // addItemButton
             // 
@@ -176,6 +181,7 @@ namespace CKK.GUI.WinForms
             this.addItemButton.TabIndex = 5;
             this.addItemButton.Text = "Add Item +";
             this.addItemButton.UseVisualStyleBackColor = false;
+            this.addItemButton.Click += new System.EventHandler(this.addItemButton_Click);
             // 
             // removeItemButton
             // 
@@ -187,6 +193,7 @@ namespace CKK.GUI.WinForms
             this.removeItemButton.TabIndex = 6;
             this.removeItemButton.Text = "Remove";
             this.removeItemButton.UseVisualStyleBackColor = false;
+            this.removeItemButton.Click += new System.EventHandler(this.removeItemButton_Click);
             // 
             // InventoryMultiTab
             // 
@@ -198,7 +205,7 @@ namespace CKK.GUI.WinForms
             this.Controls.Add(this.userIDLabel);
             this.Controls.Add(this.tabControl1);
             this.Name = "InventoryMultiTab";
-            this.Size = new System.Drawing.Size(1316, 723);
+            this.Size = new System.Drawing.Size(1295, 682);
             this.tabControl1.ResumeLayout(false);
             this.inventoryTab.ResumeLayout(false);
             this.inventoryTab.PerformLayout();

@@ -16,5 +16,13 @@ namespace CKK.GUI.WinForms
         {
             InitializeComponent();
         }
+
+        public event EventHandler confirmButtonClick;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (confirmButtonClick != null)
+                confirmButtonClick(this, e);
+        }
     }
 }

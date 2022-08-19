@@ -16,5 +16,13 @@ namespace CKK.GUI.WinForms
         {
             InitializeComponent();
         }
+
+        public event EventHandler loginButtonClick;
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            if (loginButtonClick != null)
+                loginButtonClick(this, e);
+        }
     }
 }
