@@ -124,6 +124,7 @@ namespace CKK.GUI.WinForms
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button1.Enabled = false;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Location = new System.Drawing.Point(1151, 3);
             this.button1.Name = "button1";
@@ -131,6 +132,7 @@ namespace CKK.GUI.WinForms
             this.button1.TabIndex = 6;
             this.button1.Text = "Confirm";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Visible = false;
             // 
             // InventoryItemBar
             // 
