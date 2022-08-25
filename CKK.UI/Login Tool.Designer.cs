@@ -107,8 +107,8 @@ namespace CKK.GUI.WinForms
 
         private System.Windows.Forms.Label lblUserId;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.TextBox userTextBox;
-        private System.Windows.Forms.TextBox passwordTextBox;
-        private System.Windows.Forms.Button loginButton;
+        public System.Windows.Forms.TextBox userTextBox;
+        public System.Windows.Forms.TextBox passwordTextBox;
+        public System.Windows.Forms.Button loginButton;
     }
 }

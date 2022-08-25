@@ -156,12 +156,12 @@ namespace CKK.GUI.WinForms
 
         #endregion
 
-        private System.Windows.Forms.CheckBox checkBoxItemSelect;
-        private System.Windows.Forms.Label itemIDLabel;
-        private System.Windows.Forms.TextBox descriptionTextBox;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.TextBox priceTextBox;
-        private System.Windows.Forms.TextBox notesTextBox;
-        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.CheckBox checkBoxItemSelect;
+        public System.Windows.Forms.Label itemIDLabel;
+        public System.Windows.Forms.TextBox descriptionTextBox;
+        public System.Windows.Forms.NumericUpDown numericUpDown1;
+        public System.Windows.Forms.TextBox priceTextBox;
+        public System.Windows.Forms.TextBox notesTextBox;
+        public System.Windows.Forms.Button button1;
     }
 }

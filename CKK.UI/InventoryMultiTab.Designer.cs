@@ -32,17 +32,17 @@ namespace CKK.GUI.WinForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryMultiTab));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.inventoryTab = new System.Windows.Forms.TabPage();
+            this.removeItemButton = new System.Windows.Forms.Button();
+            this.addItemButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.labelSearch = new System.Windows.Forms.Label();
+            this.inventoryPanel = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.userIDLabel = new System.Windows.Forms.Label();
             this.accessLevelLabel = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
-            this.inventoryPanel = new System.Windows.Forms.Panel();
-            this.labelSearch = new System.Windows.Forms.Label();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.searchButton = new System.Windows.Forms.Button();
-            this.editButton = new System.Windows.Forms.Button();
-            this.addItemButton = new System.Windows.Forms.Button();
-            this.removeItemButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.inventoryTab.SuspendLayout();
             this.SuspendLayout();
@@ -74,6 +74,85 @@ namespace CKK.GUI.WinForms
             this.inventoryTab.Size = new System.Drawing.Size(1287, 566);
             this.inventoryTab.TabIndex = 0;
             this.inventoryTab.Text = "Store Inventory";
+            // 
+            // removeItemButton
+            // 
+            this.removeItemButton.BackColor = System.Drawing.Color.Orange;
+            this.removeItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.removeItemButton.Location = new System.Drawing.Point(392, 28);
+            this.removeItemButton.Name = "removeItemButton";
+            this.removeItemButton.Size = new System.Drawing.Size(75, 23);
+            this.removeItemButton.TabIndex = 6;
+            this.removeItemButton.Text = "Remove";
+            this.removeItemButton.UseVisualStyleBackColor = false;
+            this.removeItemButton.Click += new System.EventHandler(this.removeItemButton_Click);
+            // 
+            // addItemButton
+            // 
+            this.addItemButton.BackColor = System.Drawing.Color.Gold;
+            this.addItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addItemButton.Location = new System.Drawing.Point(311, 28);
+            this.addItemButton.Name = "addItemButton";
+            this.addItemButton.Size = new System.Drawing.Size(75, 23);
+            this.addItemButton.TabIndex = 5;
+            this.addItemButton.Text = "Add Item +";
+            this.addItemButton.UseVisualStyleBackColor = false;
+            this.addItemButton.Click += new System.EventHandler(this.addItemButton_Click);
+            // 
+            // editButton
+            // 
+            this.editButton.BackColor = System.Drawing.Color.BlueViolet;
+            this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editButton.ForeColor = System.Drawing.Color.White;
+            this.editButton.Image = ((System.Drawing.Image)(resources.GetObject("editButton.Image")));
+            this.editButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.editButton.Location = new System.Drawing.Point(229, 28);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(75, 23);
+            this.editButton.TabIndex = 4;
+            this.editButton.Text = "Edit";
+            this.editButton.UseVisualStyleBackColor = false;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
+            // 
+            // searchButton
+            // 
+            this.searchButton.BackColor = System.Drawing.Color.Blue;
+            this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.searchButton.ForeColor = System.Drawing.Color.White;
+            this.searchButton.Image = ((System.Drawing.Image)(resources.GetObject("searchButton.Image")));
+            this.searchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.searchButton.Location = new System.Drawing.Point(148, 28);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(75, 23);
+            this.searchButton.TabIndex = 3;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = false;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(3, 30);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(139, 20);
+            this.searchTextBox.TabIndex = 2;
+            // 
+            // labelSearch
+            // 
+            this.labelSearch.AutoSize = true;
+            this.labelSearch.Location = new System.Drawing.Point(3, 14);
+            this.labelSearch.Name = "labelSearch";
+            this.labelSearch.Size = new System.Drawing.Size(73, 13);
+            this.labelSearch.TabIndex = 1;
+            this.labelSearch.Text = "Search By ID:";
+            // 
+            // inventoryPanel
+            // 
+            this.inventoryPanel.AutoScroll = true;
+            this.inventoryPanel.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.inventoryPanel.Location = new System.Drawing.Point(0, 56);
+            this.inventoryPanel.Name = "inventoryPanel";
+            this.inventoryPanel.Size = new System.Drawing.Size(1287, 511);
+            this.inventoryPanel.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -116,85 +195,6 @@ namespace CKK.GUI.WinForms
             this.logoutButton.UseVisualStyleBackColor = false;
             this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
             // 
-            // inventoryPanel
-            // 
-            this.inventoryPanel.AutoScroll = true;
-            this.inventoryPanel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.inventoryPanel.Location = new System.Drawing.Point(0, 56);
-            this.inventoryPanel.Name = "inventoryPanel";
-            this.inventoryPanel.Size = new System.Drawing.Size(1287, 511);
-            this.inventoryPanel.TabIndex = 0;
-            // 
-            // labelSearch
-            // 
-            this.labelSearch.AutoSize = true;
-            this.labelSearch.Location = new System.Drawing.Point(3, 14);
-            this.labelSearch.Name = "labelSearch";
-            this.labelSearch.Size = new System.Drawing.Size(73, 13);
-            this.labelSearch.TabIndex = 1;
-            this.labelSearch.Text = "Search By ID:";
-            // 
-            // searchTextBox
-            // 
-            this.searchTextBox.Location = new System.Drawing.Point(3, 30);
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(139, 20);
-            this.searchTextBox.TabIndex = 2;
-            // 
-            // searchButton
-            // 
-            this.searchButton.BackColor = System.Drawing.Color.Blue;
-            this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.searchButton.ForeColor = System.Drawing.Color.White;
-            this.searchButton.Image = ((System.Drawing.Image)(resources.GetObject("searchButton.Image")));
-            this.searchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.searchButton.Location = new System.Drawing.Point(148, 28);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(75, 23);
-            this.searchButton.TabIndex = 3;
-            this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = false;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
-            // 
-            // editButton
-            // 
-            this.editButton.BackColor = System.Drawing.Color.BlueViolet;
-            this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editButton.ForeColor = System.Drawing.Color.White;
-            this.editButton.Image = ((System.Drawing.Image)(resources.GetObject("editButton.Image")));
-            this.editButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.editButton.Location = new System.Drawing.Point(229, 28);
-            this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(75, 23);
-            this.editButton.TabIndex = 4;
-            this.editButton.Text = "Edit";
-            this.editButton.UseVisualStyleBackColor = false;
-            this.editButton.Click += new System.EventHandler(this.editButton_Click);
-            // 
-            // addItemButton
-            // 
-            this.addItemButton.BackColor = System.Drawing.Color.Gold;
-            this.addItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addItemButton.Location = new System.Drawing.Point(311, 28);
-            this.addItemButton.Name = "addItemButton";
-            this.addItemButton.Size = new System.Drawing.Size(75, 23);
-            this.addItemButton.TabIndex = 5;
-            this.addItemButton.Text = "Add Item +";
-            this.addItemButton.UseVisualStyleBackColor = false;
-            this.addItemButton.Click += new System.EventHandler(this.addItemButton_Click);
-            // 
-            // removeItemButton
-            // 
-            this.removeItemButton.BackColor = System.Drawing.Color.Orange;
-            this.removeItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeItemButton.Location = new System.Drawing.Point(392, 28);
-            this.removeItemButton.Name = "removeItemButton";
-            this.removeItemButton.Size = new System.Drawing.Size(75, 23);
-            this.removeItemButton.TabIndex = 6;
-            this.removeItemButton.Text = "Remove";
-            this.removeItemButton.UseVisualStyleBackColor = false;
-            this.removeItemButton.Click += new System.EventHandler(this.removeItemButton_Click);
-            // 
             // InventoryMultiTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -214,19 +214,18 @@ namespace CKK.GUI.WinForms
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage inventoryTab;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label userIDLabel;
-        private System.Windows.Forms.Label accessLevelLabel;
         private System.Windows.Forms.Button logoutButton;
-        private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Label labelSearch;
-        private System.Windows.Forms.Panel inventoryPanel;
         private System.Windows.Forms.Button addItemButton;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.Button removeItemButton;
+        public System.Windows.Forms.Label userIDLabel;
+        public System.Windows.Forms.TabControl tabControl1;
+        public System.Windows.Forms.Label accessLevelLabel;
+        public System.Windows.Forms.TextBox searchTextBox;
+        public System.Windows.Forms.Panel inventoryPanel;
+        public System.Windows.Forms.TabPage inventoryTab;
+        public System.Windows.Forms.TabPage tabPage2;
     }
 }

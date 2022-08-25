@@ -78,14 +78,24 @@ namespace CKK.GUI.WinForms
 
         protected void LoginTool_loginButtonClick(object sender, System.EventArgs e)
         {
-
+            this.inventoryMultiTab1.userIDLabel.Text = loginTool1.userTextBox.Text;
+            this.inventoryMultiTab1.accessLevelLabel.Text = "Permission Level: Debug";
+            this.loginTool1.Visible = false;
+            this.loginTool1.Enabled = false;
+            this.inventoryMultiTab1.Enabled = true;
+            this.inventoryMultiTab1.Visible = true;
         }
 
         private InventoryMultiTab inventoryMultiTab1;
 
         protected void inventoryMultiTab1_LogoutClick(object sender, System.EventArgs e)
         {
-
+            this.inventoryMultiTab1.Enabled = false;
+            this.inventoryMultiTab1.Visible = false;
+            this.loginTool1.Visible = true;
+            this.loginTool1.Enabled = true;
+            this.loginTool1.userTextBox.Clear();
+            this.loginTool1.passwordTextBox.Clear();
         }
 
         protected void inventoryMultiTab1_SearchClick(object sender, System.EventArgs e)
