@@ -6,16 +6,16 @@ namespace CKK.GUI.WinForms
 {
     public partial class Form1 : Form
     {
-
+        public Store Store { get; set; }
         public Form1()
         {
             InitializeComponent();
-            Store testStore = new Store();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
     }
 }

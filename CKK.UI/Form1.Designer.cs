@@ -110,12 +110,18 @@ namespace CKK.GUI.WinForms
 
         protected void inventoryMultiTab1_AddItemClick(object sender, System.EventArgs e)
         {
-
+            AddItem(Store);
         }
 
         protected void inventoryMultiTab1_RemoveItemClick(object sender, System.EventArgs e)
         {
 
+        }
+
+        protected void AddItem(Logic.Models.Store exampleStore)
+        {
+            new AddNewItemForm(exampleStore);
+            inventoryMultiTab1.populateInventory(exampleStore);
         }
     }
 }

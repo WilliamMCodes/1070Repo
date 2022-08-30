@@ -52,5 +52,15 @@ namespace CKK.GUI.WinForms
             if (removeButtonClick != null)
                 removeButtonClick(this, e);
         }
+
+        public void populateInventory(Logic.Models.Store exampleStore)
+        {
+            Controls.Clear();
+            foreach (Logic.Models.StoreItem storeItem in exampleStore.GetStoreItems())
+            {
+                inventoryPanel.Controls.Add(new InventoryItemBar(int.Parse(storeItem.Product.Id.ToString()), 
+                    storeItem.Product.Name, storeItem.Product.Price, storeItem.Quantity));   
+            }
+        }
     }
 }

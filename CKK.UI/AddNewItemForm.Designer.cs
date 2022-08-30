@@ -115,6 +115,7 @@ namespace CKK.GUI.WinForms
             this.buttonAddItem.TabIndex = 8;
             this.buttonAddItem.Text = "Add Item";
             this.buttonAddItem.UseVisualStyleBackColor = false;
+            this.buttonAddItem.Click += new System.EventHandler(this.buttonAddItem_Click);
             // 
             // buttonCancel
             // 
