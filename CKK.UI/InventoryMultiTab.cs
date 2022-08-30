@@ -53,7 +53,7 @@ namespace CKK.GUI.WinForms
                 removeButtonClick(this, e);
         }
 
-        public void populateInventory(Logic.Models.Store exampleStore)
+        public void PopulateInventory(Logic.Models.Store exampleStore)
         {
             Controls.Clear();
             foreach (Logic.Models.StoreItem storeItem in exampleStore.GetStoreItems())

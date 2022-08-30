@@ -115,13 +115,25 @@ namespace CKK.GUI.WinForms
 
         protected void inventoryMultiTab1_RemoveItemClick(object sender, System.EventArgs e)
         {
-
+            foreach(InventoryItemBar control in inventoryMultiTab1.inventoryPanel.Controls)
+            {
+                if (control.checkBoxItemSelect.Checked)
+                {
+                    RemoveItem(control, Store);
+                }
+            }
         }
 
         protected void AddItem(Logic.Models.Store exampleStore)
         {
             new AddNewItemForm(exampleStore);
-            inventoryMultiTab1.populateInventory(exampleStore);
+            inventoryMultiTab1.PopulateInventory(exampleStore);
+        }
+
+        protected void RemoveItem(InventoryItemBar itemBar, Logic.Models.Store exampleStore)
+        {
+            exampleStore.RemoveStoreItem(int.Parse(itemBar.itemIDLabel.Text), int.Parse(itemBar.numericUpDown1.Value.ToString()));
+            inventoryMultiTab1.PopulateInventory(exampleStore);
         }
     }
 }
