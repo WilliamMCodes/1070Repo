@@ -130,6 +130,10 @@
       <Project>{8746f864-c415-4041-a4a0-94f8eb84b1ba}</Project>
       <Name>CKK.Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CKK.Persistance\CKK.Persistance.csproj">
+      <Project>{4f17bb7a-8747-4d4c-bbcd-e494021fd460}</Project>
+      <Name>CKK.Persistance</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

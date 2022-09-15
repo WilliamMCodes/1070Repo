@@ -20,6 +20,10 @@ namespace CKK.Persistance.Models
         {
             FilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar +
                 "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
+            if (File.Exists(FilePath))
+            {
+                Load();
+            }
         }
 
         public StoreItem AddStoreItem(Product prod, int quantity = 1)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CKK.Persistance.Models;
 
 namespace CKK.GUI.WinForms
 {
@@ -53,7 +54,7 @@ namespace CKK.GUI.WinForms
                 removeButtonClick(this, e);
         }
 
-        public void PopulateInventory(Logic.Models.Store exampleStore)
+        public void PopulateInventory(FileStore exampleStore)
         {
             inventoryListBox1.Items.Clear();
             foreach (Logic.Models.StoreItem storeItem in exampleStore.GetStoreItems())

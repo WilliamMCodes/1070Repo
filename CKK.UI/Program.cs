@@ -21,7 +21,7 @@ namespace CKK.GUI.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
             Form2 loginForm = new Form2();
             Application.Run(loginForm);
-            Application.Run(new Form1(new Logic.Models.Store()));
+            Application.Run(new Form1(new Persistance.Models.FileStore()));
         }
 
         static private string userName;

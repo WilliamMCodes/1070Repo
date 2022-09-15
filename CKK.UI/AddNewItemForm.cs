@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CKK.Persistance.Models;
 
 namespace CKK.GUI.WinForms
 {
     public partial class AddNewItemForm : Form
     {
-        public Logic.Models.Store Store { get; set; }
+        public FileStore Store { get; set; }
         public Form1 TargetForm { get; set; }
-        public AddNewItemForm(Logic.Models.Store store, Form1 passedForm)
+        public AddNewItemForm(FileStore store, Form1 passedForm)
         {
             Store = store;
             TargetForm = passedForm;
@@ -33,6 +34,7 @@ namespace CKK.GUI.WinForms
                 MakeControlsVisible(control);
                 
             }*/
+            TargetForm.Store.Save();
             Close();
         }
 

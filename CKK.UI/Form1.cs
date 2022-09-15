@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 using CKK.Logic.Models;
+using CKK.Persistance.Models;
 
 namespace CKK.GUI.WinForms
 {
     public partial class Form1 : Form
     {
-        public Store Store { get; set; }
-        public Form1(Logic.Models.Store store)
+        public FileStore Store { get; set; }
+        public Form1(FileStore store)
         {
             InitializeComponent();
             Store = store;

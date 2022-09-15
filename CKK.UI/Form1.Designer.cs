@@ -84,7 +84,7 @@ namespace CKK.GUI.WinForms
             }
         }
 
-        protected void AddItem(Logic.Models.Store exampleStore)
+        protected void AddItem(CKK.Persistance.Models.FileStore exampleStore)
         {
             AddNewItemForm additemForm = new AddNewItemForm(exampleStore, this);
             additemForm.Show();
@@ -94,6 +94,7 @@ namespace CKK.GUI.WinForms
         {
             Store.RemoveStoreItem(int.Parse(itemID),int.Parse(itemQuantity));
             inventoryMultiTab1.PopulateInventory(Store);
+            Store.Save();
         }
 
         private InventoryMultiTab inventoryMultiTab1;
