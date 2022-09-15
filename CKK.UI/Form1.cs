@@ -13,6 +13,7 @@ namespace CKK.GUI.WinForms
             InitializeComponent();
             Store = store;
             inventoryMultiTab1.userIDLabel.Text = $"User ID: {Program.UserName}";
+            RunInventory(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)

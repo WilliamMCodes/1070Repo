@@ -20,9 +20,15 @@ namespace CKK.Persistance.Models
         {
             FilePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + Path.DirectorySeparatorChar +
                 "Persistance" + Path.DirectorySeparatorChar + "StoreItems.dat";
+            Items = new List<StoreItem>();
             if (File.Exists(FilePath))
             {
                 Load();
+            }
+            else
+            {
+                CreatePath();
+                Save();
             }
         }
 
@@ -83,6 +89,10 @@ namespace CKK.Persistance.Models
             {
                 throw new Logic.Exceptions.InvalidIdException(id);
             }
+            if(Items.Count < 1)
+            {
+                return null;
+            }
             var selectedItem =
                 from storeItem in Items
                 where storeItem.Product.Id == id
@@ -108,23 +118,26 @@ namespace CKK.Persistance.Models
 
         public void Load()
         {
-            FileStream fileStream = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.Read);
+            FileStream fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read);
             BinaryFormatter reader = new BinaryFormatter();
             List<StoreItem> inventory = (List<StoreItem>)reader.Deserialize(fileStream);
             Items = inventory;
+            fileStream.Close();
         }
 
         public void Save()
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            CreatePath();
-            FileStream fileStream = new FileStream(FilePath, FileMode.Append);
+            FileStream fileStream = new FileStream(FilePath, FileMode.Create, FileAccess.Write);
             formatter.Serialize(fileStream, Items);
+            fileStream.Close();
         }
 
         private void CreatePath()
         {
-            File.Create(FilePath);
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                Path.DirectorySeparatorChar + "Persistance");
+            File.Create(FilePath).Close();
         }
     }
 }
