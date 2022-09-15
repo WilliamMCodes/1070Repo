@@ -11,12 +11,32 @@ namespace CKK.GUI.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// 
+
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Form2 loginForm = new Form2();
+            Application.Run(loginForm);
+            Application.Run(new Form1(new Logic.Models.Store()));
         }
+
+        static private string userName;
+
+        static public string UserName
+        {
+            get
+            {
+                return userName;
+            }
+            set
+            {
+                userName = value;
+            }
+        }
+
     }
 }

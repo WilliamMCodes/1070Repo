@@ -12,13 +12,16 @@ namespace CKK.GUI.WinForms
 {
     public partial class InventoryItemBar : UserControl
     {
+        public int ID { get; set; }
+        public string ItemName { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
         public InventoryItemBar(int id, string name, decimal price, int quantity)
         {
-            itemIDLabel.Text = id.ToString();
-            descriptionTextBox.Text = name;
-            priceTextBox.Text = $"USD\r\n { price: C2}";
-            numericUpDown1.Value = quantity;
-            InitializeComponent();
+            ID = id;
+            ItemName = name;
+            Price = price;
+            Quantity = quantity;
         }
 
         public event EventHandler confirmButtonClick;
@@ -27,6 +30,15 @@ namespace CKK.GUI.WinForms
         {
             if (confirmButtonClick != null)
                 confirmButtonClick(this, e);
+        }
+
+        private void InventoryItemBar_Load(object sender, EventArgs e)
+        {
+            InitializeComponent();
+            itemIDLabel.Text = ID.ToString();
+            descriptionTextBox.Text = ItemName;
+            priceTextBox.Text = $"USD\r\n { Price: C2}";
+            numericUpDown1.Value = Quantity;
         }
     }
 }

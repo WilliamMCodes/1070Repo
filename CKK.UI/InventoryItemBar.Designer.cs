@@ -148,6 +148,7 @@ namespace CKK.GUI.WinForms
             this.Controls.Add(this.checkBoxItemSelect);
             this.Name = "InventoryItemBar";
             this.Size = new System.Drawing.Size(1260, 30);
+            this.Load += new System.EventHandler(this.InventoryItemBar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

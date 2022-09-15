@@ -38,11 +38,11 @@ namespace CKK.GUI.WinForms
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.labelSearch = new System.Windows.Forms.Label();
-            this.inventoryPanel = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.userIDLabel = new System.Windows.Forms.Label();
             this.accessLevelLabel = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
+            this.inventoryListBox1 = new System.Windows.Forms.CheckedListBox();
             this.tabControl1.SuspendLayout();
             this.inventoryTab.SuspendLayout();
             this.SuspendLayout();
@@ -61,13 +61,13 @@ namespace CKK.GUI.WinForms
             // inventoryTab
             // 
             this.inventoryTab.BackColor = System.Drawing.Color.White;
+            this.inventoryTab.Controls.Add(this.inventoryListBox1);
             this.inventoryTab.Controls.Add(this.removeItemButton);
             this.inventoryTab.Controls.Add(this.addItemButton);
             this.inventoryTab.Controls.Add(this.editButton);
             this.inventoryTab.Controls.Add(this.searchButton);
             this.inventoryTab.Controls.Add(this.searchTextBox);
             this.inventoryTab.Controls.Add(this.labelSearch);
-            this.inventoryTab.Controls.Add(this.inventoryPanel);
             this.inventoryTab.Location = new System.Drawing.Point(4, 29);
             this.inventoryTab.Name = "inventoryTab";
             this.inventoryTab.Padding = new System.Windows.Forms.Padding(3);
@@ -145,15 +145,6 @@ namespace CKK.GUI.WinForms
             this.labelSearch.TabIndex = 1;
             this.labelSearch.Text = "Search By ID:";
             // 
-            // inventoryPanel
-            // 
-            this.inventoryPanel.AutoScroll = true;
-            this.inventoryPanel.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.inventoryPanel.Location = new System.Drawing.Point(0, 56);
-            this.inventoryPanel.Name = "inventoryPanel";
-            this.inventoryPanel.Size = new System.Drawing.Size(1287, 511);
-            this.inventoryPanel.TabIndex = 0;
-            // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
@@ -179,7 +170,7 @@ namespace CKK.GUI.WinForms
             this.accessLevelLabel.Name = "accessLevelLabel";
             this.accessLevelLabel.Size = new System.Drawing.Size(274, 24);
             this.accessLevelLabel.TabIndex = 2;
-            this.accessLevelLabel.Text = "Permission Level:";
+            this.accessLevelLabel.Text = "Permission Level: Debugger";
             this.accessLevelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // logoutButton
@@ -194,6 +185,14 @@ namespace CKK.GUI.WinForms
             this.logoutButton.Text = "Log Out";
             this.logoutButton.UseVisualStyleBackColor = false;
             this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
+            // 
+            // inventoryListBox1
+            // 
+            this.inventoryListBox1.FormattingEnabled = true;
+            this.inventoryListBox1.Location = new System.Drawing.Point(7, 57);
+            this.inventoryListBox1.Name = "inventoryListBox1";
+            this.inventoryListBox1.Size = new System.Drawing.Size(1274, 499);
+            this.inventoryListBox1.TabIndex = 7;
             // 
             // InventoryMultiTab
             // 
@@ -224,8 +223,8 @@ namespace CKK.GUI.WinForms
         public System.Windows.Forms.TabControl tabControl1;
         public System.Windows.Forms.Label accessLevelLabel;
         public System.Windows.Forms.TextBox searchTextBox;
-        public System.Windows.Forms.Panel inventoryPanel;
         public System.Windows.Forms.TabPage inventoryTab;
         public System.Windows.Forms.TabPage tabPage2;
+        public System.Windows.Forms.CheckedListBox inventoryListBox1;
     }
 }

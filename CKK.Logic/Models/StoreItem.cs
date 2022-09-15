@@ -13,5 +13,10 @@ namespace CKK.Logic.Models
         {
 
         }
+
+        public override string ToString()
+        {
+            return $"Item#: {Product.Id,-20} Name: {Product.Name,-45} Price: {Product.Price,-20:C2} Quantity: {Quantity,-10}";
+        }
     }
 }

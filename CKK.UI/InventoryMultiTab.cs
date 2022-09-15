@@ -55,11 +55,10 @@ namespace CKK.GUI.WinForms
 
         public void PopulateInventory(Logic.Models.Store exampleStore)
         {
-            Controls.Clear();
+            inventoryListBox1.Items.Clear();
             foreach (Logic.Models.StoreItem storeItem in exampleStore.GetStoreItems())
             {
-                inventoryPanel.Controls.Add(new InventoryItemBar(int.Parse(storeItem.Product.Id.ToString()), 
-                    storeItem.Product.Name, storeItem.Product.Price, storeItem.Quantity));   
+                inventoryListBox1.Items.Add(storeItem.ToString());
             }
         }
     }
