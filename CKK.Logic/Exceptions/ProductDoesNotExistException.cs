@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using CKK.Logic.Models;
 
 namespace CKK.Logic.Exceptions
-{
+{   
+    [Serializable]
     public class ProductDoesNotExistException: Exception
     {
         public override string Message { get; }
