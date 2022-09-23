@@ -7,6 +7,7 @@ using CKK.Logic.Models;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace CKK.Persistance.Models
 {
@@ -138,6 +139,38 @@ namespace CKK.Persistance.Models
             Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
                 Path.DirectorySeparatorChar + "Persistance");
             File.Create(FilePath).Close();
+        }
+
+        public List<StoreItem> GetAllProductsByName(string name)
+        {
+            Regex rx = new Regex(Regex.Replace(Regex.Escape(name), @"\**<search>\**\w+", @".*<search>.*"));
+            var products =
+                from product in Items
+                where rx.IsMatch(product.Product.Name)
+                orderby product.Product.Name ascending
+                select product;
+
+            return products.ToList();
+        }
+
+        public List<StoreItem> GetProductsByQuantity()
+        {
+            var products =
+                from product in Items
+                orderby product.Quantity descending
+                select product;
+
+            return products.ToList();
+        }
+
+        public List<StoreItem> GetProductsByPrice()
+        {
+            var products =
+                from product in Items
+                orderby product.Product.Price descending
+                select product;
+
+            return products.ToList();
         }
     }
 }

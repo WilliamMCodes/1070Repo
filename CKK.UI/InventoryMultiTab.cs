@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CKK.Persistance.Models;
+using CKK.Logic.Models;
 
 namespace CKK.GUI.WinForms
 {
@@ -57,7 +58,16 @@ namespace CKK.GUI.WinForms
         public void PopulateInventory(FileStore exampleStore)
         {
             inventoryListBox1.Items.Clear();
-            foreach (Logic.Models.StoreItem storeItem in exampleStore.GetStoreItems())
+            foreach (StoreItem storeItem in exampleStore.GetStoreItems())
+            {
+                inventoryListBox1.Items.Add(storeItem.ToString());
+            }
+        }
+
+        public void PopulateInventory(List<StoreItem> items)
+        {
+            inventoryListBox1.Items.Clear();
+            foreach(StoreItem storeItem in items)
             {
                 inventoryListBox1.Items.Add(storeItem.ToString());
             }

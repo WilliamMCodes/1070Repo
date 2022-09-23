@@ -32,6 +32,7 @@ namespace CKK.GUI.WinForms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InventoryMultiTab));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.inventoryTab = new System.Windows.Forms.TabPage();
+            this.inventoryListBox1 = new System.Windows.Forms.CheckedListBox();
             this.removeItemButton = new System.Windows.Forms.Button();
             this.addItemButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@ namespace CKK.GUI.WinForms
             this.userIDLabel = new System.Windows.Forms.Label();
             this.accessLevelLabel = new System.Windows.Forms.Label();
             this.logoutButton = new System.Windows.Forms.Button();
-            this.inventoryListBox1 = new System.Windows.Forms.CheckedListBox();
             this.tabControl1.SuspendLayout();
             this.inventoryTab.SuspendLayout();
             this.SuspendLayout();
@@ -74,6 +74,14 @@ namespace CKK.GUI.WinForms
             this.inventoryTab.Size = new System.Drawing.Size(1287, 566);
             this.inventoryTab.TabIndex = 0;
             this.inventoryTab.Text = "Store Inventory";
+            // 
+            // inventoryListBox1
+            // 
+            this.inventoryListBox1.FormattingEnabled = true;
+            this.inventoryListBox1.Location = new System.Drawing.Point(7, 57);
+            this.inventoryListBox1.Name = "inventoryListBox1";
+            this.inventoryListBox1.Size = new System.Drawing.Size(1274, 499);
+            this.inventoryListBox1.TabIndex = 7;
             // 
             // removeItemButton
             // 
@@ -141,9 +149,9 @@ namespace CKK.GUI.WinForms
             this.labelSearch.AutoSize = true;
             this.labelSearch.Location = new System.Drawing.Point(3, 14);
             this.labelSearch.Name = "labelSearch";
-            this.labelSearch.Size = new System.Drawing.Size(73, 13);
+            this.labelSearch.Size = new System.Drawing.Size(90, 13);
             this.labelSearch.TabIndex = 1;
-            this.labelSearch.Text = "Search By ID:";
+            this.labelSearch.Text = "Search By Name:";
             // 
             // tabPage2
             // 
@@ -185,14 +193,6 @@ namespace CKK.GUI.WinForms
             this.logoutButton.Text = "Log Out";
             this.logoutButton.UseVisualStyleBackColor = false;
             this.logoutButton.Click += new System.EventHandler(this.logoutButton_Click);
-            // 
-            // inventoryListBox1
-            // 
-            this.inventoryListBox1.FormattingEnabled = true;
-            this.inventoryListBox1.Location = new System.Drawing.Point(7, 57);
-            this.inventoryListBox1.Name = "inventoryListBox1";
-            this.inventoryListBox1.Size = new System.Drawing.Size(1274, 499);
-            this.inventoryListBox1.TabIndex = 7;
             // 
             // InventoryMultiTab
             // 

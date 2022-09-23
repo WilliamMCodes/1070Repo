@@ -29,8 +29,36 @@ namespace CKK.GUI.WinForms
         /// </summary>
         private void InitializeComponent()
         {
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.inventoryMultiTab1 = new CKK.GUI.WinForms.InventoryMultiTab();
             this.SuspendLayout();
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.BackColor = System.Drawing.Color.White;
+            this.radioButton1.Location = new System.Drawing.Point(477, 143);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(99, 17);
+            this.radioButton1.TabIndex = 3;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Sort All by Price";
+            this.radioButton1.UseVisualStyleBackColor = false;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.BackColor = System.Drawing.Color.White;
+            this.radioButton2.Location = new System.Drawing.Point(582, 143);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(114, 17);
+            this.radioButton2.TabIndex = 4;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Sort All by Quantity";
+            this.radioButton2.UseVisualStyleBackColor = false;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // inventoryMultiTab1
             // 
@@ -39,16 +67,22 @@ namespace CKK.GUI.WinForms
             this.inventoryMultiTab1.Name = "inventoryMultiTab1";
             this.inventoryMultiTab1.Size = new System.Drawing.Size(1295, 682);
             this.inventoryMultiTab1.TabIndex = 1;
-            this.inventoryMultiTab1.removeButtonClick += new System.EventHandler(inventoryMultiTab1_RemoveItemClick);
-            this.inventoryMultiTab1.addItemButtonClick += new System.EventHandler(inventoryMultiTab1_AddItemClick);
+            this.inventoryMultiTab1.logoutButtonClick += new System.EventHandler(this.inventoryMultiTab1_LogoutClick);
+            this.inventoryMultiTab1.searchButtonClick += new System.EventHandler(this.inventoryMultiTab1_SearchClick);
+            this.inventoryMultiTab1.editButtonClick += new System.EventHandler(this.inventoryMultiTab1_EditClick);
+            this.inventoryMultiTab1.addItemButtonClick += new System.EventHandler(this.inventoryMultiTab1_AddItemClick);
+            this.inventoryMultiTab1.removeButtonClick += new System.EventHandler(this.inventoryMultiTab1_RemoveItemClick);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1295, 680);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.inventoryMultiTab1);
             this.IsMdiContainer = true;
             this.Name = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -56,17 +90,23 @@ namespace CKK.GUI.WinForms
 
         protected void inventoryMultiTab1_LogoutClick(object sender, System.EventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         protected void inventoryMultiTab1_SearchClick(object sender, System.EventArgs e)
         {
-
+            inventoryMultiTab1.PopulateInventory(Store.GetAllProductsByName(inventoryMultiTab1.searchTextBox.Text));
+            radioButton1.Checked = false;
+            radioButton2.Checked = false;
         }
 
         protected void inventoryMultiTab1_EditClick(object sender, System.EventArgs e)
         {
-
+            for (int x = inventoryMultiTab1.inventoryListBox1.CheckedItems.Count - 1; x >= 0; x--)
+            {
+                string testString1 = inventoryMultiTab1.inventoryListBox1.CheckedItems[x].ToString().Substring(7, 20);
+                EditItem(Store, testString1);
+            }
         }
 
         protected void inventoryMultiTab1_AddItemClick(object sender, System.EventArgs e)
@@ -97,6 +137,14 @@ namespace CKK.GUI.WinForms
             Store.Save();
         }
 
+        protected void EditItem(CKK.Persistance.Models.FileStore store, string id)
+        {
+            EditItemsForm editItemsForm = new EditItemsForm(store, id, this);
+            editItemsForm.Show();
+        }
+
         private InventoryMultiTab inventoryMultiTab1;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CKK.Logic.Interfaces;
 using CKK.Logic.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace CKK.Logic.Models
 {
@@ -90,5 +91,37 @@ namespace CKK.Logic.Models
 
             return null;
         }
-    }
+
+        public List<StoreItem> GetAllProductsByName(string name)
+        {
+            Regex rx = new Regex(Regex.Replace(name, @"\**<search>\**\w+", @".*<search>.*"));
+            var products =
+                from product in _storeInventory
+                where rx.IsMatch(product.Product.Name)
+                orderby product.Product.Name ascending
+                select product;
+
+            return products.ToList();
+        }
+
+        public List<StoreItem> GetProductsByQuantity()
+        {
+            var products =
+                from product in _storeInventory
+                orderby product.Quantity descending
+                select product;
+
+            return products.ToList();
+        }
+
+        public List<StoreItem> GetProductsByPrice()
+        {
+            var products =
+                from product in _storeInventory
+                orderby product.Product.Price descending
+                select product;
+
+            return products.ToList();
+        }
+     }
 }

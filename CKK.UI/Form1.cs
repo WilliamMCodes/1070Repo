@@ -26,5 +26,20 @@ namespace CKK.GUI.WinForms
             form.inventoryMultiTab1.PopulateInventory(form.Store);
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                inventoryMultiTab1.PopulateInventory(Store.GetProductsByPrice());
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                inventoryMultiTab1.PopulateInventory(Store.GetProductsByQuantity());
+            }
+        }
     }
 }
