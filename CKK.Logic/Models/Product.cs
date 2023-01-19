@@ -8,31 +8,12 @@ using CKK.Logic.Interfaces;
 namespace CKK.Logic.Models
 {
     [Serializable]
-    public class Product :Entity
+    public class Product
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
         private decimal price;
-        public Product(int id = 10101011, string name = "Thing-a-mabob", decimal price = 1.00M) : base(id, name)
-        {
-            Price = price;
-        }
-        
-        public decimal Price
-        {
-            get => price;
-
-            set
-            {
-                if(value < 0)
-                {
-                    throw new ArgumentOutOfRangeException("Price", $"{value:C} is not a valid price.");
-                }
-                else
-                {
-                    price = value;
-                }
-            }
-
-        }   
-        
+        public decimal Price { get; set; }
+        public int Quantity { get; set; }
     }
 }
