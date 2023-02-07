@@ -77,6 +77,7 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var result = connection.Execute(sql, entity);
+                return result;
             }
         }
     }
