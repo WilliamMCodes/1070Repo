@@ -26,32 +26,25 @@ namespace CKK.DB.Repository
             }
         }
 
-        public ShoppingCartItem AddToCart(string itemName, int quantity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ShoppingCartItem AddToCart(int shoppingCartId,string itemName, int quantity)
+        public ShoppingCartItem AddToCart(ShoppingCartItem item)
         {
             using(var connection = _connectionFactory.GetConnection)
             {
-                var sql = "SELECT ProductId FROM ShoppingCartItems WHERE ShoppinCartId = @ShoppingCartId;";
-                var results = connection.Query(sql, new { ShoppingCartId = shoppingCartId });
+                var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppinCartId = @ShoppingCartId;";
+                var results = connection.Query(sql, new { ShoppingCartId = item.ShoppingCartId });
                 if (results != null)
                 {
-                    foreach (var item in results)
+                    foreach (var product in results)
                     {
-                        if (item.Name = itemName)
+                        if ((ShoppingCartItem)product.ProductId = item.ProductId)
                         {
-                            return new ShoppingCartItem { ShoppingCartId = shoppingCartId, ProductId = item.Id, Quantity = item.Quantity + quantity };
+                            return new ShoppingCartItem { ShoppingCartId = item.ShoppingCartId, ProductId = item.ProductId, Quantity = item.Quantity + product.Quantity };
                         }
                     }
                 }
                 else
-                {
-                    sql = "SELECT Id FROM Products WHERE Name = @Name;";
-                    results = connection.QuerySingleOrDefault(sql, new { Name = itemName });
-                    return new ShoppingCartItem { ShoppingCartId = shoppingCartId, ProductId = (int)results.AsList()[0], Quantity = quantity};
+                {   
+                    return item;
                 }
                 
             }
@@ -98,11 +91,6 @@ namespace CKK.DB.Repository
                 }
                 return total;
             }
-        }
-
-        public void Ordered(int shoppingCartId)
-        {
-            throw new NotImplementedException();
         }
 
         public int Update(ShoppingCartItem entity)

@@ -7,11 +7,10 @@ namespace CKK.DB.Interfaces
 {
     public interface IShoppingCartRepository
     {
-        ShoppingCartItem AddToCart(string itemName, int quantity);
+        ShoppingCartItem AddToCart(ShoppingCartItem item);
         int ClearCart(int shoppingCartId);
         decimal GetTotal(int shoppingCartId);
         List<ShoppingCartItem> GetProducts(int shoppingCartId);
-        void Ordered(int shoppingCartId);
         int Update(ShoppingCartItem entity);
         int Add(ShoppingCartItem entity);
     }
