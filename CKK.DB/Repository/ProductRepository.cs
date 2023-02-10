@@ -44,7 +44,7 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var list = connection.Query(sql);
-                return list;
+                return (List<Product>)list;
             }
         }
 
@@ -66,7 +66,7 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var result = connection.Query(sql, new {Name = "*" + name + "*" });
-                return  result;
+                return  (List<Product>)result;
             }
         }
 

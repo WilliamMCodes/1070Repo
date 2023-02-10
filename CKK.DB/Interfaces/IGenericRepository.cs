@@ -5,13 +5,13 @@ using System.Text;
 
 namespace CKK.DB.Interfaces
 {
-    internal interface IGenericRepository<T>
+    public interface IGenericRepository<T>
     {
 
         T GetbyId(int id);
         List<T> GetAll();
-        int Add(int id);
-        int Update(int id);
+        int Add(T entity);
+        int Update(T entity);
         int Delete(int id);
     }
 }

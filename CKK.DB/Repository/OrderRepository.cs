@@ -43,7 +43,7 @@ namespace CKK.DB
             {
                 connection.Open();
                 var result = connection.Query(sql);
-                return result;
+                return (List<Order>)result;
             }
         }
 
@@ -54,18 +54,18 @@ namespace CKK.DB
             {
                 connection.Open();
                 var result = connection.QuerySingleOrDefault(sql, new {OrderId = id});
-                return result;
+                return (Order)result;
             }
         }
 
-        public List<Order> GetOrderByCustomerId(int id)
+        public Order GetOrderByCustomerId(int id)
         {
             var sql = "SELECT * FROM Orders WHERE CustomerId = @CustomerId";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
                 var result = connection.Query(sql, new {CustomerId = id});
-                return result;
+                return (Order)result;
             }
         }
 

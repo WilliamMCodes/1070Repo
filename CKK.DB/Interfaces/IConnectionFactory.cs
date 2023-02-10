@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CKK.DB.Interfaces
 {
-    internal interface IConnectionFactory 
+    public interface IConnectionFactory 
     {
         IDbConnection GetConnection { get; }
     }
