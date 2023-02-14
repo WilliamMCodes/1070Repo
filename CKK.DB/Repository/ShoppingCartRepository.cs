@@ -26,31 +26,41 @@ namespace CKK.DB.Repository
             }
         }
 
-        public ShoppingCartItem AddToCart(ShoppingCartItem item)
+        public int AddToCart(int id, Product item)
         {
             using(var connection = _connectionFactory.GetConnection)
             {
-                var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppinCartId = @ShoppingCartId;";
-                var results = connection.Query(sql, new { ShoppingCartId = item.ShoppingCartId });
+                var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppinCartId = @Id;";
+                var results = connection.Query(sql, new { Id = id, ProductId = item.Id, Quantity = item.Quantity });
                 if (results != null)
                 {
                     foreach (var product in results)
                     {
-                        if ((ShoppingCartItem)product.ProductId = item.ProductId)
+                        if (product.ProductId == item.Id)
                         {
-                            return new ShoppingCartItem { ShoppingCartId = item.ShoppingCartId, ProductId = item.ProductId, Quantity = item.Quantity + product.Quantity };
+                            return Update(new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity + product.Quantity });
                         }
                     }
                 }
                 else
                 {   
-                    return item;
+                    var shoppingCartItem = new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity };
+                    return Add(shoppingCartItem);
                 }
                 
             }
             
             using(var connection = _connectionFactory.GetConnection)
-            return null;
+            return 0;
+        }
+
+        public int RemoveItem(int shoppingCartId, Product product)
+        {
+            var sql = "DELETE FROM ShoppingCartItems WHERE ShoppingCartId = @ShoppingCartId AND ProductId = @ProductId";
+            using(var connection = _connectionFactory.GetConnection)
+            {
+                return connection.Execute(sql, new { ShoppingCartId = shoppingCartId, ProductId = product.Id });
+            }
         }
 
         public int ClearCart(int shoppingCartId)
