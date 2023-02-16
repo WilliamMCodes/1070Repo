@@ -7,15 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CKK.DB.UOW;
+using CKK.Logic.Models;
 using CKK.Persistance.Models;
 
 namespace CKK.GUI.WinForms
 {
     public partial class AddNewItemForm : Form
     {
-        public FileStore Store { get; set; }
+        public UnitOfWork Store { get; set; }
         public Form1 TargetForm { get; set; }
-        public AddNewItemForm(FileStore store, Form1 passedForm)
+        public AddNewItemForm(UnitOfWork store, Form1 passedForm)
         {
             Store = store;
             TargetForm = passedForm;
@@ -24,9 +26,26 @@ namespace CKK.GUI.WinForms
 
         private void buttonAddItem_Click(object sender, EventArgs e)
         {
-            Store.AddStoreItem(new Logic.Models.Product(Convert.ToInt32(textBoxID.Text), 
-                textBoxName.Text, decimal.Parse(textBoxPrice.Text)));
-            Form1.RunInventory(TargetForm);
+            if(
+                Store.Products.Add(new Product
+                {
+                    Id = int.Parse(textBoxID.Text),
+                    Name = textBoxName.Text,
+                    Price = decimal.Parse(textBoxPrice.Text),
+                    Quantity = 1
+                }) == 1
+              )
+            {
+                Form1.RunInventory(TargetForm);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Failed to add new item." + Environment.NewLine +
+                    "Please ensure all fields were entered correctly  " + Environment.NewLine + 
+                    "and that the item isn't a duplicate.", "Add New Item Failed.", 0);
+            }
+            
             /*foreach(Control control in TargetForm.Controls)
             {
                 control.Visible = true;
@@ -34,8 +53,6 @@ namespace CKK.GUI.WinForms
                 MakeControlsVisible(control);
                 
             }*/
-            TargetForm.Store.Save();
-            Close();
         }
 
         private void MakeControlsVisible(Control control)
