@@ -41,6 +41,7 @@ namespace CKK.DB.UOW
                     Quantity = Products.GetbyId(item.ProductId).Quantity - item.Quantity
                 });
             }
+            Customer.ShoppingCartId = 0;
         }
 
         internal string GenerateOrderNumber()
@@ -52,6 +53,10 @@ namespace CKK.DB.UOW
 
         internal int AddItemToCart(Product product)
         {
+            if (Customer.ShoppingCartId == 0)
+            {
+                Customer.ShoppingCartId = ShoppingCarts.GetNewShoppingCart();
+            }
             return ShoppingCarts.AddToCart(Customer.ShoppingCartId, product);
         }
         internal int RemoveItemFromCart(Product product)

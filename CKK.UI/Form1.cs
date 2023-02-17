@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
 using CKK.Logic.Models;
-using CKK.Persistance.Models;
+using CKK.DB.UOW;
 
 namespace CKK.GUI.WinForms
 {
     public partial class Form1 : Form
     {
-        public FileStore Store { get; set; }
-        public Form1(FileStore store)
+        public UnitOfWork Store { get; set; }
+        public Form1(UnitOfWork store)
         {
             InitializeComponent();
             Store = store;
@@ -30,7 +30,7 @@ namespace CKK.GUI.WinForms
         {
             if (radioButton1.Checked)
             {
-                inventoryMultiTab1.PopulateInventory(Store.GetProductsByPrice());
+                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(1));
             }
         }
 

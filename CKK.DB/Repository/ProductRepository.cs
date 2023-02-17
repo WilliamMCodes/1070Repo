@@ -48,6 +48,27 @@ namespace CKK.DB.Repository
             }
         }
 
+        public List<Product> GetAll(int orderOption)
+        {
+            string option = "Id";
+            if (orderOption == 1)
+            {
+                option = "Price";
+            }
+            else if(orderOption == 2)
+            {
+                option = "Quantity";
+            }
+            
+            var sql = "SELECT * FROM Products OrderBy " + option;
+            using (var connection = _connectionFactory.GetConnection)
+            {
+                connection.Open();
+                var list = connection.Query(sql);
+                return (List<Product>)list;
+            }
+        }
+
         public Product GetbyId(int id)
         {
             var sql = "SELECT * FROM Products WHERE Id = @Id";

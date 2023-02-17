@@ -14,5 +14,7 @@ namespace CKK.DB.Interfaces
         int Update(ShoppingCartItem entity);
         int Add(ShoppingCartItem entity);
         int RemoveItem(int shoppingCartId, Product product);
+
+        int GetNewShoppingCart();
     }
 }

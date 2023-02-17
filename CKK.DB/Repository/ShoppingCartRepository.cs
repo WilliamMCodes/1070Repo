@@ -49,8 +49,6 @@ namespace CKK.DB.Repository
                 }
                 
             }
-            
-            using(var connection = _connectionFactory.GetConnection)
             return 0;
         }
 
@@ -76,7 +74,7 @@ namespace CKK.DB.Repository
 
         public List<ShoppingCartItem> GetProducts(int shoppingCartId)
         {
-            var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppingCartId = @ShoppingCartId";
+            var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppingCartId = @ShoppingCartId AND NOT ProductId = 0";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
@@ -105,13 +103,28 @@ namespace CKK.DB.Repository
 
         public int Update(ShoppingCartItem entity)
         {
-            var sql = "UPDATE ShoppingCartItems SET ShoppingCartId = @ShoppingCartId, ProductId = @ProductId, Quantity = @Quantity WHERE Id = @Id";
+            var sql = "UPDATE ShoppingCartItems SET Quantity = @Quantity WHERE ShoppingCartId = @ShoppingCartId" +
+                "AND ProductId = @ProductId";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
                 var result = connection.Execute(sql, entity);
                 return result;
             }
+        }
+
+        public int GetNewShoppingCart()
+        {
+            int newId;
+            var sql = "SELECT MAX(ShoppingCartId) FROM ShoppingCartItems";
+            using(var connection = _connectionFactory.GetConnection)
+            {
+                connection.Open();
+                var results = connection.QueryFirstOrDefault(sql);
+                newId = (int)results + 1;
+            }
+            _ = Add(new ShoppingCartItem{ShoppingCartId = newId, ProductId = 0, Quantity = 0 });
+            return newId;
         }
     }
 }

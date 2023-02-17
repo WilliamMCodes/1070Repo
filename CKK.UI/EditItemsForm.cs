@@ -7,42 +7,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CKK.DB.Repository;
+using CKK.DB.UOW;
+using CKK.Logic.Models;
 
 namespace CKK.GUI.WinForms
 {
     public partial class EditItemsForm : Form
     {
-        private Persistance.Models.FileStore Store { get; set; }
-        private string ItemId { get; set; }
+        private UnitOfWork Store { get; set; }
+        private int ItemId { get; set; }
         private Form1 TargetForm { get; set; }
-        private Logic.Models.StoreItem StoreItem { get; set; }
-        public EditItemsForm(Persistance.Models.FileStore store, string itemId, Form1 targetForm)
+        private Product StoreItem { get; set; }
+        public EditItemsForm(UnitOfWork store, int itemId, Form1 targetForm)
         {
             InitializeComponent();
             Store = store;
             ItemId = itemId;
             TargetForm = targetForm;
-            StoreItem = Store.FindStoreItemById(int.Parse(ItemId));
-            textBox1.Text = StoreItem.Product.Id.ToString();
-            textBox2.Text = StoreItem.Product.Name;
-            textBox3.Text = StoreItem.Product.Price.ToString();
+            StoreItem = Store.Products.GetbyId(ItemId);
+            textBox1.Text = StoreItem.Id.ToString();
+            textBox2.Text = StoreItem.Name;
+            textBox3.Text = StoreItem.Price.ToString();
             quantityUpDown1.Value = StoreItem.Quantity;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            StoreItem.Product.Id = int.Parse(textBox1.Text);
-            StoreItem.Product.Name = textBox2.Text;
-            StoreItem.Product.Price = decimal.Parse(textBox3.Text);
-            if(StoreItem.Quantity < quantityUpDown1.Value)
+            StoreItem.Id = int.Parse(textBox1.Text);
+            StoreItem.Name = textBox2.Text;
+            StoreItem.Price = decimal.Parse(textBox3.Text);
+            if(quantityUpDown1.Value >= 0)
             {
-                Store.AddStoreItem(StoreItem.Product, (int)quantityUpDown1.Value - StoreItem.Quantity);
+                StoreItem.Quantity = (int)quantityUpDown1.Value;
             }
-            else if(StoreItem.Quantity > quantityUpDown1.Value)
+            else
             {
-                Store.RemoveStoreItem(StoreItem.Product.Id, StoreItem.Quantity - (int)quantityUpDown1.Value);
+                StoreItem.Quantity = 0;
             }
-            TargetForm.Store.Save();
+            Store.Products.Update(StoreItem);
             Form1.RunInventory(TargetForm);
             Close();
         }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 
-namespace CKK.DB
+namespace CKK.DB.Repository
 {
     public class OrderRepository : IOrderRepository
     {

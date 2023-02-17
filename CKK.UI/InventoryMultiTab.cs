@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CKK.Persistance.Models;
 using CKK.Logic.Models;
+using CKK.DB.UOW;
 
 namespace CKK.GUI.WinForms
 {
@@ -55,21 +55,33 @@ namespace CKK.GUI.WinForms
                 removeButtonClick(this, e);
         }
 
-        public void PopulateInventory(FileStore exampleStore)
+        public void PopulateInventory(UnitOfWork exampleStore)
         {
             inventoryListBox1.Items.Clear();
-            foreach (StoreItem storeItem in exampleStore.GetStoreItems())
+            foreach (Product storeItem in exampleStore.Products.GetAll())
             {
-                inventoryListBox1.Items.Add(storeItem.ToString());
+                if (storeItem != null)
+                {
+                    if (inventoryListBox1.Items.Add(storeItem.ToString()) != 1)
+                    {
+                        MessageBox.Show("Error populating item list.");
+                    }
+                }   
             }
         }
 
-        public void PopulateInventory(List<StoreItem> items)
+        public void PopulateInventory(List<Product> items)
         {
             inventoryListBox1.Items.Clear();
-            foreach(StoreItem storeItem in items)
+            foreach (Product storeItem in items)
             {
-                inventoryListBox1.Items.Add(storeItem.ToString());
+                if (storeItem != null)
+                {
+                    if (inventoryListBox1.Items.Add(storeItem.ToString()) != 1)
+                    {
+                        MessageBox.Show("Error populating item list.");
+                    }
+                }
             }
         }
     }
