@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CKK.DB.UOW;
 using CKK.Logic.Models;
-using CKK.Persistance.Models;
 
 namespace CKK.GUI.WinForms
 {

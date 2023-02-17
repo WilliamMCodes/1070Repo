@@ -16,17 +16,16 @@ namespace CKK.DB.UOW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(IConnectionFactory Conn, Customer user)
+        public UnitOfWork(IConnectionFactory Conn)
         {
             Products = new ProductRepository(Conn);
             Orders = new OrderRepository(Conn);
             ShoppingCarts = new ShoppingCartRepository(Conn);
-            Customer = user;
+            SetCustomer(Conn);
         }
         public IProductRepository Products { get; private set; }
         public IOrderRepository Orders { get; private set; }
         public IShoppingCartRepository ShoppingCarts { get; set; }
-
         internal Customer Customer { get; set; }
         internal void CompleteCheckout()
         {
@@ -79,6 +78,16 @@ namespace CKK.DB.UOW
                     Quantity = results.ToList()[0].Quantity - product.Quantity 
                 });
             }
+        }
+
+        internal void SetCustomer(IConnectionFactory conn)
+        {
+            //For the sake of testing and demonstration for module 4 customer will default to CustomerId = 1
+            Customer = new Customer { Id = 1, Address = "111 Somestreet City,ST zcode", Name = "Johnny Debug", ShoppingCartId = 0 };
+        }
+        public string GetCustomerName()
+        {
+            return Customer.Name;
         }
     }
 }

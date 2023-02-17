@@ -12,7 +12,7 @@ namespace CKK.GUI.WinForms
         {
             InitializeComponent();
             Store = store;
-            inventoryMultiTab1.userIDLabel.Text = $"User ID: {Program.UserName}";
+            inventoryMultiTab1.userIDLabel.Text = $"User ID: {store.GetCustomerName()}";
             RunInventory(this);
         }
 
@@ -38,7 +38,7 @@ namespace CKK.GUI.WinForms
         {
             if (radioButton2.Checked)
             {
-                inventoryMultiTab1.PopulateInventory(Store.GetProductsByQuantity());
+                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(2));
             }
         }
     }

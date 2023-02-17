@@ -8,5 +8,6 @@ namespace CKK.DB.Interfaces
     public interface IProductRepository : IGenericRepository<Product>
     {
         List<Product> GetByName(string name);
+        List<Product> GetAll(int orderOption);
     }
 }

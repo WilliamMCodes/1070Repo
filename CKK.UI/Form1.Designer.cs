@@ -1,4 +1,4 @@
-﻿
+﻿using CKK.DB.UOW;
 namespace CKK.GUI.WinForms
 {
     partial class Form1
@@ -38,9 +38,9 @@ namespace CKK.GUI.WinForms
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.BackColor = System.Drawing.Color.White;
-            this.radioButton1.Location = new System.Drawing.Point(477, 143);
+            this.radioButton1.Location = new System.Drawing.Point(562, 162);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(99, 17);
+            this.radioButton1.Size = new System.Drawing.Size(108, 19);
             this.radioButton1.TabIndex = 3;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Sort All by Price";
@@ -51,9 +51,9 @@ namespace CKK.GUI.WinForms
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.BackColor = System.Drawing.Color.White;
-            this.radioButton2.Location = new System.Drawing.Point(582, 143);
+            this.radioButton2.Location = new System.Drawing.Point(676, 162);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(114, 17);
+            this.radioButton2.Size = new System.Drawing.Size(128, 19);
             this.radioButton2.TabIndex = 4;
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Sort All by Quantity";
@@ -64,6 +64,7 @@ namespace CKK.GUI.WinForms
             // 
             this.inventoryMultiTab1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.inventoryMultiTab1.Location = new System.Drawing.Point(0, -1);
+            this.inventoryMultiTab1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.inventoryMultiTab1.Name = "inventoryMultiTab1";
             this.inventoryMultiTab1.Size = new System.Drawing.Size(1295, 682);
             this.inventoryMultiTab1.TabIndex = 1;
@@ -95,7 +96,7 @@ namespace CKK.GUI.WinForms
 
         protected void inventoryMultiTab1_SearchClick(object sender, System.EventArgs e)
         {
-            inventoryMultiTab1.PopulateInventory(Store.GetAllProductsByName(inventoryMultiTab1.searchTextBox.Text));
+            inventoryMultiTab1.PopulateInventory(Store.Products.GetByName(inventoryMultiTab1.searchTextBox.Text));
             radioButton1.Checked = false;
             radioButton2.Checked = false;
         }
@@ -118,13 +119,13 @@ namespace CKK.GUI.WinForms
         {
             for(int x = inventoryMultiTab1.inventoryListBox1.CheckedItems.Count - 1; x >= 0; x--)
             {
-                string testString1 = inventoryMultiTab1.inventoryListBox1.CheckedItems[x].ToString().Substring(7, 20);
-                string testString2 = inventoryMultiTab1.inventoryListBox1.CheckedItems[x].ToString().Substring(118, inventoryMultiTab1.inventoryListBox1.CheckedItems[x].ToString().Length - 118);
+                string testString1 = inventoryMultiTab1.inventoryListBox1.CheckedItems[x].ToString().Substring(7, 20); //ProductId
+                string testString2 = inventoryMultiTab1.inventoryListBox1.CheckedItems[x].ToString().Substring(118, inventoryMultiTab1.inventoryListBox1.CheckedItems[x].ToString().Length - 118); //Quantity
                 RemoveItem(testString1, testString2);
             }
         }
 
-        protected void AddItem(CKK.Persistance.Models.FileStore exampleStore)
+        protected void AddItem(UnitOfWork exampleStore)
         {
             AddNewItemForm additemForm = new AddNewItemForm(exampleStore, this);
             additemForm.Show();
@@ -132,14 +133,13 @@ namespace CKK.GUI.WinForms
 
         protected void RemoveItem(string itemID, string itemQuantity)
         {
-            Store.RemoveStoreItem(int.Parse(itemID),int.Parse(itemQuantity));
+            Store.Products.Delete(int.Parse(itemID));
             inventoryMultiTab1.PopulateInventory(Store);
-            Store.Save();
         }
 
-        protected void EditItem(CKK.Persistance.Models.FileStore store, string id)
+        protected void EditItem(UnitOfWork store, string id)
         {
-            EditItemsForm editItemsForm = new EditItemsForm(store, id, this);
+            EditItemsForm editItemsForm = new EditItemsForm(store, int.Parse(id), this);
             editItemsForm.Show();
         }
 

@@ -19,7 +19,7 @@ namespace CKK.GUI.WinForms
 
         private void loginTool1_loginButtonClick(object sender, EventArgs e)
         {
-            Program.UserName = loginTool1.userTextBox.Text;
+            _ = loginTool1.userTextBox.Text;
             Close();
         }
     }

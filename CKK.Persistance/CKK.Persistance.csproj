@@ -46,11 +46,5 @@
     <Compile Include="Models\FileStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CKK.Logic\CKK.Logic.csproj">
-      <Project>{8746f864-c415-4041-a4a0-94f8eb84b1ba}</Project>
-      <Name>CKK.Logic</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

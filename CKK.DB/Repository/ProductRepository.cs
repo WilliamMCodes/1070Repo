@@ -93,12 +93,19 @@ namespace CKK.DB.Repository
 
         public int Update(Product entity)
         {
-            var sql = "UPDATE Products SET Price = @Price, Quantity = @Quantity, Name = @Name WHERE Id = @Id";
-            using (var connection = _connectionFactory.GetConnection)
+            if (entity.Id != 0)
             {
-                connection.Open();
-                var result = connection.Execute(sql, entity);
-                return result;
+                var sql = "UPDATE Products SET Price = @Price, Quantity = @Quantity, Name = @Name WHERE Id = @Id";
+                using (var connection = _connectionFactory.GetConnection)
+                {
+                    connection.Open();
+                    var result = connection.Execute(sql, entity);
+                    return result;
+                }
+            }
+            else
+            {
+                return 0;
             }
         }
     }
