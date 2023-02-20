@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CKK.GUI", "CKK.UI\CKK.GUI.c
 		{F4935039-F549-4C80-99C7-891822963388} = {F4935039-F549-4C80-99C7-891822963388}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CKK.Online", "CKK.Online\CKK.Online.csproj", "{370C63FE-7A63-4E4F-B009-2C312CECF094}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{131BECD9-3B11-49EF-A412-A43B17DFCA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{131BECD9-3B11-49EF-A412-A43B17DFCA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{131BECD9-3B11-49EF-A412-A43B17DFCA8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{370C63FE-7A63-4E4F-B009-2C312CECF094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{370C63FE-7A63-4E4F-B009-2C312CECF094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{370C63FE-7A63-4E4F-B009-2C312CECF094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{370C63FE-7A63-4E4F-B009-2C312CECF094}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
