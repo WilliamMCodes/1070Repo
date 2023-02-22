@@ -26,7 +26,7 @@ namespace CKK.DB.UOW
         public IProductRepository Products { get; private set; }
         public IOrderRepository Orders { get; private set; }
         public IShoppingCartRepository ShoppingCarts { get; set; }
-        internal Customer Customer { get; set; }
+        public Customer Customer { get; set; }
         internal void CompleteCheckout()
         {
             Orders.Add(new Order { CustomerId = Customer.Id, ShoppingCartId = Customer.ShoppingCartId, OrderNumber = GenerateOrderNumber() } );
