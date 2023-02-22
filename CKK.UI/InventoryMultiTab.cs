@@ -62,9 +62,13 @@ namespace CKK.GUI.WinForms
             {
                 if (storeItem != null)
                 {
-                    if (inventoryListBox1.Items.Add(storeItem.ToString()) != 1)
+                    try
                     {
-                        MessageBox.Show("Error populating item list.");
+                        inventoryListBox1.Items.Add(storeItem.ToString());
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                     }
                 }   
             }

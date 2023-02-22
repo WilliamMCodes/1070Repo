@@ -78,7 +78,12 @@ namespace CKK.DB.Repository
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
+                List<ShoppingCartItem> cartItems = new List<ShoppingCartItem>();
                 var results = connection.Query(sql, new{ShoppingCartId = shoppingCartId});
+                foreach (var item in results)
+                {
+                    cartItems.Add(new ShoppingCartItem { ShoppingCartId=item.Id, ProductId=item.Id, Quantity = item.Quantity });
+                }
                 return (List<ShoppingCartItem>)results;
             }
         }

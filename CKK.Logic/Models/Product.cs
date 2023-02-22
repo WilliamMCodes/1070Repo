@@ -15,5 +15,10 @@ namespace CKK.Logic.Models
         private decimal price;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+
+        public override string ToString()
+        {
+            return $"Item # {Id,-20:D10} | Name/Description: {Name,-48:48} | Price:{Price,10:C2} | # In Stock: {Quantity,4:D4}";
+        }
     }
 }

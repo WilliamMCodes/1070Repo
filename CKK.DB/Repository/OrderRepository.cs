@@ -4,6 +4,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Linq;
 
 namespace CKK.DB.Repository
 {
@@ -43,7 +44,13 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var result = connection.Query(sql);
-                return (List<Order>)result;
+                List<Order> orders = new List<Order>();
+                foreach(var item in result)
+                {
+                    orders.Add(new Order { CustomerId = item.CustomerId, OrderId = item.OrderId, 
+                        OrderNumber = item.OrderNumber, ShoppingCartId = item.ShoppingCartId });
+                }
+                return orders;
             }
         }
 
@@ -54,18 +61,30 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var result = connection.QuerySingleOrDefault(sql, new {OrderId = id});
-                return (Order)result;
+                return new Order { CustomerId = result.CustomerId, OrderId = result.OrderId, 
+                    OrderNumber = result.OrderNumber, ShoppingCartId = result.ShoppingCartId};
             }
         }
 
-        public Order GetOrderByCustomerId(int id)
+        public List<Order> GetOrderByCustomerId(int id)
         {
             var sql = "SELECT * FROM Orders WHERE CustomerId = @CustomerId";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
                 var result = connection.Query(sql, new {CustomerId = id});
-                return (Order)result;
+                List<Order> orders = new List<Order>();
+                foreach (var item in result)
+                {
+                    orders.Add(new Order
+                    {
+                        CustomerId = item.CustomerId,
+                        OrderId = item.OrderId,
+                        OrderNumber = item.OrderNumber,
+                        ShoppingCartId = item.ShoppingCartId
+                    });
+                }
+                return orders;
             }
         }
 

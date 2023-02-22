@@ -4,6 +4,7 @@ using Dapper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Text;
 
 namespace CKK.DB.Repository
@@ -17,7 +18,7 @@ namespace CKK.DB.Repository
         }
         public int Add(Product entity)
         {
-            var sql = "INSERT INTO Products (Price, Quantity, Name) VALUES (@Price,@Quantity, @Name)";
+            var sql = "INSERT INTO Products (Price, Quantity, Name) VALUES (@Price, @Quantity, @Name)";
             using (var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
@@ -44,7 +45,12 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var list = connection.Query(sql);
-                return (List<Product>)list;
+                List<Product> products = new List<Product>();
+                foreach (var item in list)
+                {
+                    products.Add(new Product { Id = item.Id, Name = item.Name, Price = item.Price, Quantity = item.Quantity});
+                }
+                return products;
             }
         }
 
@@ -65,7 +71,12 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var list = connection.Query(sql);
-                return (List<Product>)list;
+                List<Product> products = new List<Product>();
+                foreach (var item in list)
+                {
+                    products.Add(new Product { Id = item.Id, Name = item.Name, Price = item.Price, Quantity = item.Quantity });
+                }
+                return products;
             }
         }
 
@@ -76,7 +87,7 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var product = connection.QuerySingleOrDefault(sql, new {Id = id});
-                return product;
+                return new Product { Id = product.Id, Name = product.Name, Price = product.Price, Quantity = product.Quantity };
             }
         }
 
@@ -87,7 +98,12 @@ namespace CKK.DB.Repository
             {
                 connection.Open();
                 var result = connection.Query(sql, new {Name = "*" + name + "*" });
-                return  (List<Product>)result;
+                List<Product> products = new List<Product>();
+                foreach (var item in result)
+                {
+                    products.Add(new Product { Id = item.Id, Name = item.Name, Price = item.Price, Quantity = item.Quantity });
+                }
+                return products;
             }
         }
 

@@ -28,7 +28,6 @@ namespace CKK.GUI.WinForms
             if(
                 Store.Products.Add(new Product
                 {
-                    Id = int.Parse(textBoxID.Text),
                     Name = textBoxName.Text,
                     Price = decimal.Parse(textBoxPrice.Text),
                     Quantity = 1
