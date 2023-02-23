@@ -1,0 +1,41 @@
+﻿@model CustomerCart
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+<div class="text-lg-start">
+    <h1 class=" = display-4">Shopping Cart</h1>
+</div>
+<form method="post">
+    <input type="hidden" value="@Model.CartItems" />
+    <div class="row">
+        @foreach (var item in Model.CartItems)
+        {
+            <partial name="_ProductCard" model="item.Product" />
+        }
+    </div>
+    <h2 class="text-md-start">Total: @Model.Total.ToString("C")</h2>
+    <a id="CheckOutBtn" asp-controller="Shop" asp-action="CheckOutCustomer" class="btn btn-success btn-lg btn-block">Check Out</a>
+    <p>This submit button will send your shopping cart to our server and add you to the queue.</p>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js"></script>
+<script>
+    $("input[type='number']").inputSpinner();
+
+    $(".num-spinner").on("change", function (event) {
+        ClickPlus(event.target.id.substring(8), event.target.value);
+        return false;
+    });
+
+    function ClickPlus(productId, quantity) {
+        //console.log(productId + " item was clicked. The quantity is: " + quantity);
+        $.get(
+            {
+                url: window.location.href + "/Add/" + productId + "?" + "quantity=" + quantity,
+                success: function (result) {
+                    $("#CheckoutBtn").text("Check Out - " + result);
+                }
+            });
+    }
+</script>

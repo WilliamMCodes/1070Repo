@@ -1,7 +1,17 @@
+using CKK.DB.Interfaces;
+using CKK.DB.UOW;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<DatabaseConnectionFactory>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(sp =>
+{
+    var factory = sp.GetRequiredService<DatabaseConnectionFactory>();
+    return new UnitOfWork(factory);
+});
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 

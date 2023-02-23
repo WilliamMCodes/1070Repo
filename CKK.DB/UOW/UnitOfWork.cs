@@ -27,9 +27,10 @@ namespace CKK.DB.UOW
         public IOrderRepository Orders { get; private set; }
         public IShoppingCartRepository ShoppingCarts { get; set; }
         public Customer Customer { get; set; }
-        internal void CompleteCheckout()
+        public string CompleteCheckout()
         {
-            Orders.Add(new Order { CustomerId = Customer.Id, ShoppingCartId = Customer.ShoppingCartId, OrderNumber = GenerateOrderNumber() } );
+            var orderNumber = GenerateOrderNumber();
+            Orders.Add(new Order { CustomerId = Customer.Id, ShoppingCartId = Customer.ShoppingCartId, OrderNumber = orderNumber } );
             foreach (var item in ShoppingCarts.GetProducts(Customer.ShoppingCartId))
             {
                 Products.Update(new Product
@@ -41,16 +42,17 @@ namespace CKK.DB.UOW
                 });
             }
             Customer.ShoppingCartId = 0;
+            return orderNumber;
         }
 
-        internal string GenerateOrderNumber()
+        public string GenerateOrderNumber()
         {
             Random rnd = new Random();
             return $"{DateAndTime.Year(DateTime.Now)}{rnd.Next(1000000):D6}{DateAndTime.Day(DateTime.Today):D2}" +
                 $"{ShoppingCarts.GetProducts(Customer.ShoppingCartId).Count:D3}";
         }
 
-        internal int AddItemToCart(Product product)
+        public int AddItemToCart(Product product)
         {
             if (Customer.ShoppingCartId == 0)
             {
@@ -58,7 +60,7 @@ namespace CKK.DB.UOW
             }
             return ShoppingCarts.AddToCart(Customer.ShoppingCartId, product);
         }
-        internal int RemoveItemFromCart(Product product)
+        public int RemoveItemFromCart(Product product)
         {
             var results = 
                 from item in ShoppingCarts.GetProducts(Customer.ShoppingCartId)
@@ -80,7 +82,7 @@ namespace CKK.DB.UOW
             }
         }
 
-        internal void SetCustomer(IConnectionFactory conn)
+        public void SetCustomer(IConnectionFactory conn)
         {
             //For the sake of testing and demonstration for module 4 customer will default to CustomerId = 1
             Customer = new Customer { Id = 1, Address = "111 Somestreet City,ST zcode", Name = "Johnny Debug", ShoppingCartId = 0 };

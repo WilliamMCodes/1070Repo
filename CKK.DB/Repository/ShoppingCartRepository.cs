@@ -30,9 +30,9 @@ namespace CKK.DB.Repository
         {
             using(var connection = _connectionFactory.GetConnection)
             {
-                var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppinCartId = @Id;";
+                var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppingCartId = @Id;";
                 var results = connection.Query(sql, new { Id = id, ProductId = item.Id, Quantity = item.Quantity });
-                if (results != null)
+                if (results.AsList().Count > 1 )
                 {
                     foreach (var product in results)
                     {
@@ -41,6 +41,8 @@ namespace CKK.DB.Repository
                             return Update(new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity + product.Quantity });
                         }
                     }
+                    var shoppingCartItem = new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity };
+                    return Add(shoppingCartItem);
                 }
                 else
                 {   
@@ -49,7 +51,6 @@ namespace CKK.DB.Repository
                 }
                 
             }
-            return 0;
         }
 
         public int RemoveItem(int shoppingCartId, Product product)
@@ -84,7 +85,7 @@ namespace CKK.DB.Repository
                 {
                     cartItems.Add(new ShoppingCartItem { ShoppingCartId=item.Id, ProductId=item.Id, Quantity = item.Quantity });
                 }
-                return (List<ShoppingCartItem>)results;
+                return (List<ShoppingCartItem>)cartItems;
             }
         }
 
@@ -94,13 +95,15 @@ namespace CKK.DB.Repository
             List<ShoppingCartItem> items = GetProducts(shoppingCartId);
             using(var connection = _connectionFactory.GetConnection)
             {
-                Product product;
+                decimal productPrice;
                 string sql;
                 foreach (ShoppingCartItem item in items)
                 {
                     sql = "SELECT Price FROM Products WHERE Id = @Id;";
-                    product = (Product)connection.Query(sql, new { Id = item.ProductId });
-                    total += product.Price * item.Quantity;
+                    productPrice = (connection.QuerySingleOrDefault(sql, new { Id = item.ProductId }) == null) ? 0M :
+                        connection.QuerySingleOrDefault(sql, new { Id = item.ProductId });
+
+                    total += productPrice * item.Quantity;
                 }
                 return total;
             }
@@ -121,12 +124,19 @@ namespace CKK.DB.Repository
         public int GetNewShoppingCart()
         {
             int newId;
-            var sql = "SELECT MAX(ShoppingCartId) FROM ShoppingCartItems";
+            var sql = "SELECT MAX(ShoppingCartId) As Id FROM ShoppingCartItems";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
                 var results = connection.QueryFirstOrDefault(sql);
-                newId = (int)results + 1;
+                if (results.Id == null)
+                {
+                    newId = 1;
+                }
+                else
+                {
+                    newId = results.Id + 1;
+                }
             }
             _ = Add(new ShoppingCartItem{ShoppingCartId = newId, ProductId = 0, Quantity = 0 });
             return newId;

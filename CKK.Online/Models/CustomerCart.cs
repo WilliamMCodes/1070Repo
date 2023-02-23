@@ -9,5 +9,6 @@ namespace CKK.Online.Models
         {
             CartItems = new List<ShoppingCartItem>();
         }
+        public decimal Total { get; set; }
     }
 }
