@@ -55,10 +55,10 @@ namespace CKK.GUI.WinForms
                 removeButtonClick(this, e);
         }
 
-        public void PopulateInventory(UnitOfWork exampleStore)
+        public async Task PopulateInventory(UnitOfWork exampleStore)
         {
             inventoryListBox1.Items.Clear();
-            foreach (Product storeItem in exampleStore.Products.GetAll().Result)
+            foreach (Product storeItem in await exampleStore.Products.GetAll())
             {
                 if (storeItem != null)
                 {
@@ -72,6 +72,7 @@ namespace CKK.GUI.WinForms
                     }
                 }   
             }
+            Refresh();
         }
 
         public void PopulateInventory(List<Product> items)
@@ -81,12 +82,13 @@ namespace CKK.GUI.WinForms
             {
                 if (storeItem != null)
                 {
-                    if (inventoryListBox1.Items.Add(storeItem.ToString()) != 1)
+                    if (inventoryListBox1.Items.Add(storeItem.ToString()) == -1)
                     {
                         MessageBox.Show("Error populating item list.");
                     }
                 }
             }
+            Refresh();
         }
     }
 }

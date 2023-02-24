@@ -52,10 +52,11 @@ namespace CKK.GUI.WinForms
             this.tabControl1.Controls.Add(this.inventoryTab);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.ItemSize = new System.Drawing.Size(150, 25);
-            this.tabControl1.Location = new System.Drawing.Point(0, 83);
+            this.tabControl1.Location = new System.Drawing.Point(0, 96);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1295, 599);
+            this.tabControl1.Size = new System.Drawing.Size(1511, 532);
             this.tabControl1.TabIndex = 0;
             // 
             // inventoryTab
@@ -69,27 +70,30 @@ namespace CKK.GUI.WinForms
             this.inventoryTab.Controls.Add(this.searchTextBox);
             this.inventoryTab.Controls.Add(this.labelSearch);
             this.inventoryTab.Location = new System.Drawing.Point(4, 29);
+            this.inventoryTab.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.inventoryTab.Name = "inventoryTab";
-            this.inventoryTab.Padding = new System.Windows.Forms.Padding(3);
-            this.inventoryTab.Size = new System.Drawing.Size(1287, 566);
+            this.inventoryTab.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.inventoryTab.Size = new System.Drawing.Size(1503, 499);
             this.inventoryTab.TabIndex = 0;
             this.inventoryTab.Text = "Store Inventory";
             // 
             // inventoryListBox1
             // 
             this.inventoryListBox1.FormattingEnabled = true;
-            this.inventoryListBox1.Location = new System.Drawing.Point(7, 57);
+            this.inventoryListBox1.Location = new System.Drawing.Point(8, 66);
+            this.inventoryListBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.inventoryListBox1.Name = "inventoryListBox1";
-            this.inventoryListBox1.Size = new System.Drawing.Size(1274, 499);
+            this.inventoryListBox1.Size = new System.Drawing.Size(833, 400);
             this.inventoryListBox1.TabIndex = 7;
             // 
             // removeItemButton
             // 
             this.removeItemButton.BackColor = System.Drawing.Color.Orange;
             this.removeItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeItemButton.Location = new System.Drawing.Point(392, 28);
+            this.removeItemButton.Location = new System.Drawing.Point(457, 32);
+            this.removeItemButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.removeItemButton.Name = "removeItemButton";
-            this.removeItemButton.Size = new System.Drawing.Size(75, 23);
+            this.removeItemButton.Size = new System.Drawing.Size(88, 27);
             this.removeItemButton.TabIndex = 6;
             this.removeItemButton.Text = "Remove";
             this.removeItemButton.UseVisualStyleBackColor = false;
@@ -99,9 +103,10 @@ namespace CKK.GUI.WinForms
             // 
             this.addItemButton.BackColor = System.Drawing.Color.Gold;
             this.addItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addItemButton.Location = new System.Drawing.Point(311, 28);
+            this.addItemButton.Location = new System.Drawing.Point(363, 32);
+            this.addItemButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.addItemButton.Name = "addItemButton";
-            this.addItemButton.Size = new System.Drawing.Size(75, 23);
+            this.addItemButton.Size = new System.Drawing.Size(88, 27);
             this.addItemButton.TabIndex = 5;
             this.addItemButton.Text = "Add Item +";
             this.addItemButton.UseVisualStyleBackColor = false;
@@ -114,9 +119,10 @@ namespace CKK.GUI.WinForms
             this.editButton.ForeColor = System.Drawing.Color.White;
             this.editButton.Image = ((System.Drawing.Image)(resources.GetObject("editButton.Image")));
             this.editButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.editButton.Location = new System.Drawing.Point(229, 28);
+            this.editButton.Location = new System.Drawing.Point(267, 32);
+            this.editButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(75, 23);
+            this.editButton.Size = new System.Drawing.Size(88, 27);
             this.editButton.TabIndex = 4;
             this.editButton.Text = "Edit";
             this.editButton.UseVisualStyleBackColor = false;
@@ -129,9 +135,10 @@ namespace CKK.GUI.WinForms
             this.searchButton.ForeColor = System.Drawing.Color.White;
             this.searchButton.Image = ((System.Drawing.Image)(resources.GetObject("searchButton.Image")));
             this.searchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.searchButton.Location = new System.Drawing.Point(148, 28);
+            this.searchButton.Location = new System.Drawing.Point(173, 32);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(75, 23);
+            this.searchButton.Size = new System.Drawing.Size(88, 27);
             this.searchButton.TabIndex = 3;
             this.searchButton.Text = "Search";
             this.searchButton.UseVisualStyleBackColor = false;
@@ -139,44 +146,49 @@ namespace CKK.GUI.WinForms
             // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(3, 30);
+            this.searchTextBox.Location = new System.Drawing.Point(4, 35);
+            this.searchTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(139, 20);
+            this.searchTextBox.Size = new System.Drawing.Size(162, 23);
             this.searchTextBox.TabIndex = 2;
             // 
             // labelSearch
             // 
             this.labelSearch.AutoSize = true;
-            this.labelSearch.Location = new System.Drawing.Point(3, 14);
+            this.labelSearch.Location = new System.Drawing.Point(4, 16);
+            this.labelSearch.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSearch.Name = "labelSearch";
-            this.labelSearch.Size = new System.Drawing.Size(90, 13);
+            this.labelSearch.Size = new System.Drawing.Size(96, 15);
             this.labelSearch.TabIndex = 1;
             this.labelSearch.Text = "Search By Name:";
             // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1287, 566);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tabPage2.Size = new System.Drawing.Size(1503, 499);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "other tabs as needed";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // userIDLabel
             // 
-            this.userIDLabel.Location = new System.Drawing.Point(4, 4);
+            this.userIDLabel.Location = new System.Drawing.Point(5, 5);
+            this.userIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.userIDLabel.Name = "userIDLabel";
-            this.userIDLabel.Size = new System.Drawing.Size(274, 24);
+            this.userIDLabel.Size = new System.Drawing.Size(320, 28);
             this.userIDLabel.TabIndex = 1;
             this.userIDLabel.Text = "User ID Label";
             this.userIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // accessLevelLabel
             // 
-            this.accessLevelLabel.Location = new System.Drawing.Point(284, 4);
+            this.accessLevelLabel.Location = new System.Drawing.Point(331, 5);
+            this.accessLevelLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.accessLevelLabel.Name = "accessLevelLabel";
-            this.accessLevelLabel.Size = new System.Drawing.Size(274, 24);
+            this.accessLevelLabel.Size = new System.Drawing.Size(320, 28);
             this.accessLevelLabel.TabIndex = 2;
             this.accessLevelLabel.Text = "Permission Level: Debugger";
             this.accessLevelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -185,10 +197,10 @@ namespace CKK.GUI.WinForms
             // 
             this.logoutButton.BackColor = System.Drawing.Color.Red;
             this.logoutButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.logoutButton.Location = new System.Drawing.Point(1216, 4);
+            this.logoutButton.Location = new System.Drawing.Point(757, 5);
             this.logoutButton.Margin = new System.Windows.Forms.Padding(0);
             this.logoutButton.Name = "logoutButton";
-            this.logoutButton.Size = new System.Drawing.Size(75, 25);
+            this.logoutButton.Size = new System.Drawing.Size(88, 29);
             this.logoutButton.TabIndex = 3;
             this.logoutButton.Text = "Log Out";
             this.logoutButton.UseVisualStyleBackColor = false;
@@ -196,15 +208,16 @@ namespace CKK.GUI.WinForms
             // 
             // InventoryMultiTab
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.Controls.Add(this.logoutButton);
             this.Controls.Add(this.accessLevelLabel);
             this.Controls.Add(this.userIDLabel);
             this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "InventoryMultiTab";
-            this.Size = new System.Drawing.Size(1295, 682);
+            this.Size = new System.Drawing.Size(855, 625);
             this.tabControl1.ResumeLayout(false);
             this.inventoryTab.ResumeLayout(false);
             this.inventoryTab.PerformLayout();

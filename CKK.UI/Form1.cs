@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using CKK.Logic.Models;
 using CKK.DB.UOW;
+using System.Runtime.CompilerServices;
 
 namespace CKK.GUI.WinForms
 {
@@ -13,7 +14,7 @@ namespace CKK.GUI.WinForms
             InitializeComponent();
             Store = store;
             inventoryMultiTab1.userIDLabel.Text = $"User ID: {store.GetCustomerName()}";
-            RunInventory(this);
+            Task.Run(() => RunInventory(this));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -21,24 +22,25 @@ namespace CKK.GUI.WinForms
             
         }
 
-        static public void RunInventory(Form1 form)
+        static public async Task RunInventory(Form1 form)
         {
-            form.inventoryMultiTab1.PopulateInventory(form.Store);
+            await form.Invoke(async () => await form.inventoryMultiTab1.PopulateInventory(form.Store));
+            form.Refresh();
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private async void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
             {
-                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(1).Result);
+                inventoryMultiTab1.PopulateInventory(await Store.Products.GetAll(1));
             }
         }
 
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private async void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton2.Checked)
             {
-                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(2).Result);
+                inventoryMultiTab1.PopulateInventory(await Store.Products.GetAll(2));
             }
         }
     }

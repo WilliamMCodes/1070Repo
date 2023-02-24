@@ -61,7 +61,7 @@ namespace CKK.DB.Repository
             using( var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
-                var result = connection.QuerySingleOrDefault(sql, new {OrderId = id});
+                var result = await connection.QuerySingleOrDefault(sql, new {OrderId = id});
                 return new Order { CustomerId = result.CustomerId, OrderId = result.OrderId, 
                     OrderNumber = result.OrderNumber, ShoppingCartId = result.ShoppingCartId};
             }

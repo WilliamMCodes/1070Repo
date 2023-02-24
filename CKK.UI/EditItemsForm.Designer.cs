@@ -164,6 +164,7 @@ namespace CKK.GUI.WinForms
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "EditItemsForm";
             this.Text = "Edit Store Item";
+            this.Load += new System.EventHandler(this.EditItemsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.quantityUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

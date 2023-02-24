@@ -63,10 +63,10 @@ namespace CKK.GUI.WinForms
             // inventoryMultiTab1
             // 
             this.inventoryMultiTab1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.inventoryMultiTab1.Location = new System.Drawing.Point(0, -1);
+            this.inventoryMultiTab1.Location = new System.Drawing.Point(1, 0);
             this.inventoryMultiTab1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.inventoryMultiTab1.Name = "inventoryMultiTab1";
-            this.inventoryMultiTab1.Size = new System.Drawing.Size(1295, 682);
+            this.inventoryMultiTab1.Size = new System.Drawing.Size(861, 682);
             this.inventoryMultiTab1.TabIndex = 1;
             this.inventoryMultiTab1.logoutButtonClick += new System.EventHandler(this.inventoryMultiTab1_LogoutClick);
             this.inventoryMultiTab1.searchButtonClick += new System.EventHandler(this.inventoryMultiTab1_SearchClick);
@@ -76,7 +76,7 @@ namespace CKK.GUI.WinForms
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1295, 680);
+            this.ClientSize = new System.Drawing.Size(863, 625);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.inventoryMultiTab1);
@@ -94,11 +94,12 @@ namespace CKK.GUI.WinForms
             this.Close();
         }
 
-        protected void inventoryMultiTab1_SearchClick(object sender, System.EventArgs e)
+        protected async void inventoryMultiTab1_SearchClick(object sender, System.EventArgs e)
         {
-            inventoryMultiTab1.PopulateInventory(Store.Products.GetByName(inventoryMultiTab1.searchTextBox.Text).Result);
+            await Invoke(async() => inventoryMultiTab1.PopulateInventory(await Store.Products.GetByName(inventoryMultiTab1.searchTextBox.Text)));
             radioButton1.Checked = false;
             radioButton2.Checked = false;
+            Refresh();
         }
 
         protected void inventoryMultiTab1_EditClick(object sender, System.EventArgs e)
@@ -131,10 +132,10 @@ namespace CKK.GUI.WinForms
             additemForm.Show();
         }
 
-        protected void RemoveItem(string itemID, string itemQuantity)
+        protected async void RemoveItem(string itemID, string itemQuantity)
         {
-            Store.Products.Delete(int.Parse(itemID));
-            inventoryMultiTab1.PopulateInventory(Store);
+            await Store.Products.Delete(int.Parse(itemID));
+            await inventoryMultiTab1.PopulateInventory(Store);
         }
 
         protected void EditItem(UnitOfWork store, string id)

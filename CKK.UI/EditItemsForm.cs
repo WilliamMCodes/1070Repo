@@ -25,14 +25,10 @@ namespace CKK.GUI.WinForms
             Store = store;
             ItemId = itemId;
             TargetForm = targetForm;
-            StoreItem = Store.Products.GetbyId(ItemId).Result;
-            textBox1.Text = StoreItem.Id.ToString();
-            textBox2.Text = StoreItem.Name;
-            textBox3.Text = StoreItem.Price.ToString();
-            quantityUpDown1.Value = StoreItem.Quantity;
+            Task.Run(() => PopulateEditItemForm());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             StoreItem.Id = int.Parse(textBox1.Text);
             StoreItem.Name = textBox2.Text;
@@ -45,14 +41,29 @@ namespace CKK.GUI.WinForms
             {
                 StoreItem.Quantity = 0;
             }
-            Store.Products.Update(StoreItem);
-            Form1.RunInventory(TargetForm);
+            await Store.Products.Update(StoreItem);
+            await Form1.RunInventory(TargetForm);
             Close();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void EditItemsForm_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private async void PopulateEditItemForm()
+        {
+            StoreItem = await Store.Products.GetbyId(ItemId);
+            textBox1.Invoke(() => textBox1.Text = StoreItem.Id.ToString());
+            textBox2.Invoke(() => textBox2.Text = StoreItem.Name);
+            textBox3.Invoke(() => textBox3.Text = StoreItem.Price.ToString());
+            quantityUpDown1.Invoke(() => quantityUpDown1.Value = StoreItem.Quantity);
+            Invoke(() => Refresh());
         }
     }
 }

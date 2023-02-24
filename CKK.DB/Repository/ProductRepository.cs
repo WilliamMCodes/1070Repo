@@ -98,7 +98,7 @@ namespace CKK.DB.Repository
             using ( var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
-                var result = await connection.QueryAsync(sql, new {Name = "*" + name + "*" });
+                var result = await connection.QueryAsync(sql, new {Name = "%" + name + "%" });
                 List<Product> products = new List<Product>();
                 foreach (var item in result)
                 {

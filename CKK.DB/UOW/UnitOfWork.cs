@@ -11,6 +11,7 @@ using Microsoft.VisualBasic;
 using System.ComponentModel.Design;
 using System.Linq;
 using CKK.Logic.Exceptions;
+using System.Configuration;
 
 namespace CKK.DB.UOW
 {
@@ -48,8 +49,8 @@ namespace CKK.DB.UOW
         public async Task<string> GenerateOrderNumber()
         {
             Random rnd = new Random();
-            return $"{DateAndTime.Year(DateTime.Now)}{rnd.Next(1000000):D6}{DateAndTime.Day(DateTime.Today):D2}" +
-                $"{ShoppingCarts.GetProducts(Customer.ShoppingCartId).Result.Count:D3}";
+            List<ShoppingCartItem> items = await ShoppingCarts.GetProducts(Customer.ShoppingCartId);
+            return $"{DateAndTime.Year(DateTime.Now)}{rnd.Next(1000000):D6}{DateAndTime.Day(DateTime.Today):D2}" + $"{items.Count:D3}";
         }
 
         public int AddItemToCart(Product product)

@@ -23,18 +23,18 @@ namespace CKK.GUI.WinForms
             InitializeComponent();
         }
 
-        private void buttonAddItem_Click(object sender, EventArgs e)
+        private async void buttonAddItem_Click(object sender, EventArgs e)
         {
             if(
-                Store.Products.Add(new Product
+                await Store.Products.Add(new Product
                 {
                     Name = textBoxName.Text,
                     Price = decimal.Parse(textBoxPrice.Text),
                     Quantity = 1
-                }).Result == 1
+                }) == 1
               )
             {
-                Form1.RunInventory(TargetForm);
+                await Form1.RunInventory(TargetForm);
                 Close();
             }
             else
