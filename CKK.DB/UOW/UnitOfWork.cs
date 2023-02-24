@@ -29,47 +29,47 @@ namespace CKK.DB.UOW
         public Customer Customer { get; set; }
         public string CompleteCheckout()
         {
-            var orderNumber = GenerateOrderNumber();
+            var orderNumber = GenerateOrderNumber().Result;
             Orders.Add(new Order { CustomerId = Customer.Id, ShoppingCartId = Customer.ShoppingCartId, OrderNumber = orderNumber } );
-            foreach (var item in ShoppingCarts.GetProducts(Customer.ShoppingCartId))
+            foreach (var item in ShoppingCarts.GetProducts(Customer.ShoppingCartId).Result)
             {
                 Products.Update(new Product
                 {
                     Id = item.ProductId,
-                    Price = Products.GetbyId(item.ProductId).Price,
-                    Name = Products.GetbyId(item.ProductId).Name,
-                    Quantity = Products.GetbyId(item.ProductId).Quantity - item.Quantity
+                    Price = Products.GetbyId(item.ProductId).Result.Price,
+                    Name = Products.GetbyId(item.ProductId).Result.Name,
+                    Quantity = Products.GetbyId(item.ProductId).Result.Quantity - item.Quantity
                 });
             }
             Customer.ShoppingCartId = 0;
             return orderNumber;
         }
 
-        public string GenerateOrderNumber()
+        public async Task<string> GenerateOrderNumber()
         {
             Random rnd = new Random();
             return $"{DateAndTime.Year(DateTime.Now)}{rnd.Next(1000000):D6}{DateAndTime.Day(DateTime.Today):D2}" +
-                $"{ShoppingCarts.GetProducts(Customer.ShoppingCartId).Count:D3}";
+                $"{ShoppingCarts.GetProducts(Customer.ShoppingCartId).Result.Count:D3}";
         }
 
         public int AddItemToCart(Product product)
         {
             if (Customer.ShoppingCartId == 0)
             {
-                Customer.ShoppingCartId = ShoppingCarts.GetNewShoppingCart();
+                Customer.ShoppingCartId = ShoppingCarts.GetNewShoppingCart().Result;
             }
-            return ShoppingCarts.AddToCart(Customer.ShoppingCartId, product);
+            return ShoppingCarts.AddToCart(Customer.ShoppingCartId, product).Result;
         }
         public int RemoveItemFromCart(Product product)
         {
             var results = 
-                from item in ShoppingCarts.GetProducts(Customer.ShoppingCartId)
+                from item in ShoppingCarts.GetProducts(Customer.ShoppingCartId).Result
                 where item.ProductId == product.Id
                 select item;
                 
             if (product.Quantity >= results.ToList()[0].Quantity)
             {
-                return ShoppingCarts.RemoveItem(Customer.ShoppingCartId, product);
+                return ShoppingCarts.RemoveItem(Customer.ShoppingCartId, product).Result;
             }
             else
             {
@@ -78,7 +78,7 @@ namespace CKK.DB.UOW
                     ShoppingCartId = Customer.ShoppingCartId, 
                     ProductId = product.Id, 
                     Quantity = results.ToList()[0].Quantity - product.Quantity 
-                });
+                }).Result;
             }
         }
 

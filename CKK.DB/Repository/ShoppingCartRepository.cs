@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CKK.DB.Repository
 {
@@ -15,84 +16,84 @@ namespace CKK.DB.Repository
         {
             _connectionFactory = conn;
         }
-        public int Add(ShoppingCartItem entity)
+        public async Task<int> Add(ShoppingCartItem entity)
         {
             var sql = "INSERT INTO ShoppingCartItems (ShoppingCartId, ProductId, Quantity) VALUES (@ShoppingCartId, @ProductId, @Quantity)";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
-                var result = connection.Execute(sql, entity);
+                var result = await connection.ExecuteAsync(sql, entity);
                 return result;
             }
         }
 
-        public int AddToCart(int id, Product item)
+        public async Task<int> AddToCart(int id, Product item)
         {
             using(var connection = _connectionFactory.GetConnection)
             {
                 var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppingCartId = @Id;";
-                var results = connection.Query(sql, new { Id = id, ProductId = item.Id, Quantity = item.Quantity });
+                var results = await connection.QueryAsync(sql, new { Id = id, ProductId = item.Id, Quantity = item.Quantity });
                 if (results.AsList().Count > 1 )
                 {
                     foreach (var product in results)
                     {
                         if (product.ProductId == item.Id)
                         {
-                            return Update(new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity + product.Quantity });
+                            return Update(new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity + product.Quantity }).Result;
                         }
                     }
                     var shoppingCartItem = new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity };
-                    return Add(shoppingCartItem);
+                    return Add(shoppingCartItem).Result;
                 }
                 else
                 {   
                     var shoppingCartItem = new ShoppingCartItem { ShoppingCartId = id, ProductId = item.Id, Quantity = item.Quantity };
-                    return Add(shoppingCartItem);
+                    return Add(shoppingCartItem).Result;
                 }
                 
             }
         }
 
-        public int RemoveItem(int shoppingCartId, Product product)
+        public async Task<int> RemoveItem(int shoppingCartId, Product product)
         {
             var sql = "DELETE FROM ShoppingCartItems WHERE ShoppingCartId = @ShoppingCartId AND ProductId = @ProductId";
             using(var connection = _connectionFactory.GetConnection)
             {
-                return connection.Execute(sql, new { ShoppingCartId = shoppingCartId, ProductId = product.Id });
+                return await connection.ExecuteAsync(sql, new { ShoppingCartId = shoppingCartId, ProductId = product.Id });
             }
         }
 
-        public int ClearCart(int shoppingCartId)
+        public async Task<int> ClearCart(int shoppingCartId)
         {
             var sql = "DELETE FROM ShoppingCartItems WHERE ShoppingCartId = @ShoppingCartId";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
-                var results = connection.Execute(sql, new {ShoppingCartId = shoppingCartId});
+                var results = await connection.ExecuteAsync(sql, new {ShoppingCartId = shoppingCartId});
                 return results;
             }
         }
 
-        public List<ShoppingCartItem> GetProducts(int shoppingCartId)
+        public async Task<List<ShoppingCartItem>> GetProducts(int shoppingCartId)
         {
             var sql = "SELECT * FROM ShoppingCartItems WHERE ShoppingCartId = @ShoppingCartId AND NOT ProductId = 0";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
                 List<ShoppingCartItem> cartItems = new List<ShoppingCartItem>();
-                var results = connection.Query(sql, new{ShoppingCartId = shoppingCartId});
+                var results = await connection.QueryAsync(sql, new{ShoppingCartId = shoppingCartId});
                 foreach (var item in results)
                 {
-                    cartItems.Add(new ShoppingCartItem { ShoppingCartId=item.Id, ProductId=item.Id, Quantity = item.Quantity });
+                    cartItems.Add(new ShoppingCartItem { ShoppingCartId=item.Id, ProductId=item.ProductId, Quantity = item.Quantity });
                 }
-                return (List<ShoppingCartItem>)cartItems;
+                return cartItems;
             }
         }
 
-        public decimal GetTotal(int shoppingCartId)
+        public async Task<decimal> GetTotal(int shoppingCartId)
         {
             decimal total = 0;
-            List<ShoppingCartItem> items = GetProducts(shoppingCartId);
+            List<ShoppingCartItem> items = GetProducts(shoppingCartId).Result;
             using(var connection = _connectionFactory.GetConnection)
             {
                 decimal productPrice;
@@ -100,8 +101,8 @@ namespace CKK.DB.Repository
                 foreach (ShoppingCartItem item in items)
                 {
                     sql = "SELECT Price FROM Products WHERE Id = @Id;";
-                    productPrice = (connection.QuerySingleOrDefault(sql, new { Id = item.ProductId }) == null) ? 0M :
-                        connection.QuerySingleOrDefault(sql, new { Id = item.ProductId });
+                    productPrice = (await connection.QuerySingleOrDefaultAsync(sql, new { Id = item.ProductId }) == null) ? 0M :
+                        await connection.QuerySingleOrDefaultAsync<decimal>(sql, new { Id = item.ProductId });
 
                     total += productPrice * item.Quantity;
                 }
@@ -109,26 +110,26 @@ namespace CKK.DB.Repository
             }
         }
 
-        public int Update(ShoppingCartItem entity)
+        public async Task<int> Update(ShoppingCartItem entity)
         {
             var sql = "UPDATE ShoppingCartItems SET Quantity = @Quantity WHERE ShoppingCartId = @ShoppingCartId" +
                 "AND ProductId = @ProductId";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
-                var result = connection.Execute(sql, entity);
+                var result = await connection.ExecuteAsync(sql, entity);
                 return result;
             }
         }
 
-        public int GetNewShoppingCart()
+        public async Task<int> GetNewShoppingCart()
         {
             int newId;
             var sql = "SELECT MAX(ShoppingCartId) As Id FROM ShoppingCartItems";
             using(var connection = _connectionFactory.GetConnection)
             {
                 connection.Open();
-                var results = connection.QueryFirstOrDefault(sql);
+                var results = await connection.QueryFirstOrDefaultAsync(sql);
                 if (results.Id == null)
                 {
                     newId = 1;
@@ -140,6 +141,17 @@ namespace CKK.DB.Repository
             }
             _ = Add(new ShoppingCartItem{ShoppingCartId = newId, ProductId = 0, Quantity = 0 });
             return newId;
+        }
+
+        public async Task<int> GetExistingCartIdForExample()
+        {
+            var sql = "SELECT MAX(ShoppingCartId) As Id FROM ShoppingCartItems";
+            using (var connection = _connectionFactory.GetConnection)
+            {
+                connection.Open();
+                var results = await connection.QueryFirstOrDefaultAsync(sql);
+                return results.Id;
+            }
         }
     }
 }

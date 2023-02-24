@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using CKK.Logic.Models;
 
 namespace CKK.DB.Interfaces
 {
     public interface IShoppingCartRepository
     {
-        int AddToCart(int id, Product item);
-        int ClearCart(int shoppingCartId);
-        decimal GetTotal(int shoppingCartId);
-        List<ShoppingCartItem> GetProducts(int shoppingCartId);
-        int Update(ShoppingCartItem entity);
-        int Add(ShoppingCartItem entity);
-        int RemoveItem(int shoppingCartId, Product product);
+        Task<int> AddToCart(int id, Product item);
+        Task<int> ClearCart(int shoppingCartId);
+        Task<decimal> GetTotal(int shoppingCartId);
+        Task<List<ShoppingCartItem>> GetProducts(int shoppingCartId);
+        Task<int> Update(ShoppingCartItem entity);
+        Task<int> Add(ShoppingCartItem entity);
+        Task<int> RemoveItem(int shoppingCartId, Product product);
 
-        int GetNewShoppingCart();
+        Task<int> GetNewShoppingCart();
+
+        Task<int> GetExistingCartIdForExample();
     }
 }

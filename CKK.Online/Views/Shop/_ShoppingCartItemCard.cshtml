@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ShoppingCartItem
+<div class="card" style="width: 18rem; padding: 5px;">
+    <div class="card-body">
+        <h5 class="card-title text-center">@Model.Product.Name</h5>
+        <p class="card-text">@Model.Product.Price.ToString("c")</p>
+        <p class="card-text">Quantity In Cart: @Model.Quantity</p>
+        <br />
+    </div>
+    <div class="card-footer">
+        <input class="num-spinner" id="spinner-@Model.Product.Id" style="padding: 10px; width: 75%;" type="number" value="@Model.Quantity" min="0" max="@Model.Product.Quantity" step="1" />
+    </div>
+</div>

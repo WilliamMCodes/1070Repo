@@ -11,7 +11,7 @@
 <form method="post">
     <input type="hidden" value="@Model.StoreFront.Products" />
     <div class="row">
-        @foreach (var item in Model.StoreFront.Products.GetAll())
+        @foreach (var item in Model.StoreFront.Products.GetAll().Result)
         {
             <partial name="_ProductCard" model="item" />
         }

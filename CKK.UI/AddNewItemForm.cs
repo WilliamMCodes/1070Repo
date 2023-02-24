@@ -31,7 +31,7 @@ namespace CKK.GUI.WinForms
                     Name = textBoxName.Text,
                     Price = decimal.Parse(textBoxPrice.Text),
                     Quantity = 1
-                }) == 1
+                }).Result == 1
               )
             {
                 Form1.RunInventory(TargetForm);

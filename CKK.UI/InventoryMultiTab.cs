@@ -58,7 +58,7 @@ namespace CKK.GUI.WinForms
         public void PopulateInventory(UnitOfWork exampleStore)
         {
             inventoryListBox1.Items.Clear();
-            foreach (Product storeItem in exampleStore.Products.GetAll())
+            foreach (Product storeItem in exampleStore.Products.GetAll().Result)
             {
                 if (storeItem != null)
                 {

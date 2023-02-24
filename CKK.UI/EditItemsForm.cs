@@ -25,7 +25,7 @@ namespace CKK.GUI.WinForms
             Store = store;
             ItemId = itemId;
             TargetForm = targetForm;
-            StoreItem = Store.Products.GetbyId(ItemId);
+            StoreItem = Store.Products.GetbyId(ItemId).Result;
             textBox1.Text = StoreItem.Id.ToString();
             textBox2.Text = StoreItem.Name;
             textBox3.Text = StoreItem.Price.ToString();

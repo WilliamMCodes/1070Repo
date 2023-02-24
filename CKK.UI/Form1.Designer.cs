@@ -96,7 +96,7 @@ namespace CKK.GUI.WinForms
 
         protected void inventoryMultiTab1_SearchClick(object sender, System.EventArgs e)
         {
-            inventoryMultiTab1.PopulateInventory(Store.Products.GetByName(inventoryMultiTab1.searchTextBox.Text));
+            inventoryMultiTab1.PopulateInventory(Store.Products.GetByName(inventoryMultiTab1.searchTextBox.Text).Result);
             radioButton1.Checked = false;
             radioButton2.Checked = false;
         }

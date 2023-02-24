@@ -30,7 +30,7 @@ namespace CKK.GUI.WinForms
         {
             if (radioButton1.Checked)
             {
-                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(1));
+                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(1).Result);
             }
         }
 
@@ -38,7 +38,7 @@ namespace CKK.GUI.WinForms
         {
             if (radioButton2.Checked)
             {
-                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(2));
+                inventoryMultiTab1.PopulateInventory(Store.Products.GetAll(2).Result);
             }
         }
     }

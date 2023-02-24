@@ -11,13 +11,18 @@ namespace CKK.Online.Models
         {
             StoreFront = UOW;
             ShoppingCart = new CustomerCart();
-            ShoppingCart.CartItems = StoreFront.ShoppingCarts.GetProducts(StoreFront.Customer.ShoppingCartId);
+            ShoppingCart.CartItems = StoreFront.ShoppingCarts.GetProducts(StoreFront.Customer.ShoppingCartId).Result;
         }
 
         public void RefreshCart(CustomerCart cart)
         {
             cart.CartItems.Clear();
-            cart.CartItems = StoreFront.ShoppingCarts.GetProducts(StoreFront.Customer.ShoppingCartId);
+            cart.CartItems = StoreFront.ShoppingCarts.GetProducts(StoreFront.Customer.ShoppingCartId).Result;
+            foreach (var item in cart.CartItems)
+            {
+                item.Product = StoreFront.Products.GetbyId(item.ProductId).Result;
+            }
+            cart.Total = StoreFront.ShoppingCarts.GetTotal(StoreFront.Customer.ShoppingCartId).Result;
         }
     }
 }

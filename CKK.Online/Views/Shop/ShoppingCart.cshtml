@@ -10,7 +10,7 @@
     <div class="row">
         @foreach (var item in Model.CartItems)
         {
-            <partial name="_ProductCard" model="item.Product" />
+            <partial name="_ShoppingCartItemCard" model="item" />
         }
     </div>
     <h2 class="text-md-start">Total: @Model.Total.ToString("C")</h2>
